@@ -10,7 +10,7 @@ const xss = require("xss-clean");
 const compression = require("compression");
 const cors = require("cors");
 const passport = require("passport");
-const { jwtStrategy } = require('./config/passport')
+const { jwtStrategy } = require("./config/passport");
 
 const app = express();
 
