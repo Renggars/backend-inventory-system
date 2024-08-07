@@ -1,5 +1,6 @@
 post
 http://localhost:3000/v1/auth/register
+--password sama--
 {
     "name": "create",
     "email": "create@gmail.com",

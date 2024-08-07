@@ -70,7 +70,7 @@ const verifyToken = async (token, type) => {
 const generateAuthTokens = async (user) => {
   const accessTokenExpires = moment().add(
     config.jwt.accessExpirationMinutes,
-    "minutes"
+    "hours"
   );
   const accessToken = generateToken(
     user.id,

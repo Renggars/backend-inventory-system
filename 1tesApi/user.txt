@@ -1,6 +1,11 @@
 //password data user sama semua
+get users
+http://localhost:3000/v1/user
 
-post
+get user
+http://localhost:3000/v1/user/id
+
+post create user
 http://localhost:3000/v1/user
 {
     "name": "create",
@@ -10,10 +15,13 @@ http://localhost:3000/v1/user
 }
 
 update
-http://localhost:3000/v1/auth/register
+http://localhost:3000/v1/user/id
 {
     "name": "update",
     "email": "update@gmail.com",
     "password": "password1",
     "role": "admin"
 }
+
+delete
+http://localhost:3000/v1/user/id

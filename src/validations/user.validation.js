@@ -6,9 +6,14 @@ const createUser = {
     name: Joi.string().required(),
     email: Joi.string().email().required(),
     password: Joi.string().custom(password).required(),
-    role: Joi.string().valid('user', 'admin').default('user'),
+    role: Joi.string().valid("user", "admin").default("user"),
   }),
 };
+
+const querySchema = Joi.object({
+  page: Joi.number().integer().min(1).default(1),
+  limit: Joi.number().integer().min(1).default(10),
+});
 
 const getUser = {
   params: Joi.object().keys({
@@ -25,7 +30,7 @@ const updateUser = {
       name: Joi.string(),
       email: Joi.string().email(),
       password: Joi.string().custom(password),
-      role: Joi.string().valid('user', 'admin'),
+      role: Joi.string().valid("user", "admin"),
     })
     .min(1),
 };
@@ -55,6 +60,7 @@ const loginUser = {
 
 module.exports = {
   createUser,
+  querySchema,
   getUser,
   updateUser,
   deleteUser,

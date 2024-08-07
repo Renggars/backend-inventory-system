@@ -1,101 +1,63 @@
 const userService = require("../services/user.service");
-const { password } = require("../validations/custom.validation");
+const {
+  responseApiSuccess,
+  responseApiFailed,
+  responseApiCreateSuccess,
+} = require("../utils/responseApi");
+const userValidation = require("../validations/user.validation");
 
 const getUsers = async (req, res) => {
   try {
-    const { page = 1, limit = 10, ...filter } = req.query;
-    const result = await categoryService.queryCategorys(filter, {
-      page: Number(page),
-      limit: Number(limit),
+    const { error, value } = userValidation.querySchema.validate(req.query);
+    if (error) {
+      throw error;
+    }
+
+    const { page, limit, ...filter } = value;
+    const result = await userService.queryUsers(filter, {
+      page,
+      limit,
     });
-    
-    res.status(200).json({
-      status: 200,
-      message: "Succes get users",
-      data: result,
-    });
+
+    responseApiSuccess(res, "Success get users", result);
   } catch (err) {
-    console.log(err);
-    res.status(500).json({
-      status: 500,
-      message: "Failed get users",
-      error: err.message,
-    });
+    responseApiFailed(res, "Failed get users");
   }
 };
 
 const getUser = async (req, res) => {
   try {
     const result = await userService.getUserById(req.params.userId);
-    res.status(200).json({
-      status: 200,
-      message: "Succes get user",
-      data: result,
-    });
+    responseApiSuccess(res, "Success get user", result);
   } catch (err) {
-    console.log(err);
-    res.status(500).json({
-      status: 500,
-      message: "Failed get user",
-      error: err.message,
-    });
+    responseApiFailed(res, "Failed get user");
   }
 };
 
 const createUser = async (req, res) => {
   try {
     const result = await userService.createUser(req.body);
-    res.status(200).json({
-      status: 200,
-      message: "Succes create user",
-      data: result,
-    });
+    responseApiCreateSuccess(res, "Success create user", result);
   } catch (err) {
-    console.log(err);
-    res.status(500).json({
-      status: 500,
-      message: "Failed create user",
-      error: err.message,
-    });
+    responseApiFailed(res, "Failed create user");
   }
 };
 
 const updateUser = async (req, res) => {
   try {
-    const result = await userService.updateUserById(
-      req.params.userId,
-      req.body
-    );
-    res.status(200).json({
-      status: 200,
-      message: "Succes update user",
-      data: result,
-    });
+    const result = await userServic.updateUserById(req.params.userId, req.body);
+    responseApiSuccess(res, "Success update user", result);
   } catch (err) {
-    console.log(err);
-    res.status(500).json({
-      status: 500,
-      message: "Failed update user",
-      error: err.message,
-    });
+    responseApiFailed(res, "Failed update user");
   }
 };
 
 const deleteUser = async (req, res) => {
   try {
     const result = await userService.deleteUserById(req.params.userId);
-    res.status(200).json({
-      status: 200,
-      message: "Succes delete user",
-      data: result,
-    });
+    responseApiSuccess(res, "Success delete user", result);
   } catch (err) {
-    console.log(err);
-    res.status(500).json({
-      status: 500,
-      message: "Failed update user",
-      error: err.message,
-    });
+    responseApiFailed(res, "Failed update user");
   }
 };
 

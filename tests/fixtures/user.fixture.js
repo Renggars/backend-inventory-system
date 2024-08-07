@@ -34,6 +34,12 @@ const admin = {
   isEmailVerified: false,
 };
 
+const newUser = {
+  name: faker.name.findName(),
+  email: faker.internet.email(),
+  password: "Password1",
+};
+
 const insertUsers = async (users) => {
   users = users.map((user) => ({ ...user, password: hashedPassword }));
   await prisma.user.createMany({
@@ -46,5 +52,6 @@ module.exports = {
   userOne,
   userTwo,
   admin,
+  newUser,
   insertUsers,
 };

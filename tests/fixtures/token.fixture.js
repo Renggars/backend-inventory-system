@@ -6,7 +6,7 @@ const { userOne, admin } = require("./user.fixture");
 
 const accessTokenExpires = moment().add(
   config.jwt.accessExpirationMinutes,
-  "minutes"
+  "hours"
 );
 const userOneAccessToken = tokenService.generateToken(
   userOne.id,
