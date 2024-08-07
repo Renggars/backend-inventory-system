@@ -1,0 +1,25 @@
+post
+http://localhost:3000/v1/order
+{
+    "totalPrice": 0,
+    "customerName": "create",
+    "customerEmail": "create@gmail.com",
+    "userId": "cc672e85-d6a0-415c-932c-6c39118fe221"
+}
+
+get
+http://localhost:3000/v1/order
+
+getById
+http://localhost:3000/v1/order/:id
+
+update
+http://localhost:3000/v1/order
+{
+    "totalPrice": 0,
+    "customerName": "update",
+    "customerEmail": "update@gmail.com"
+}
+
+delete
+http://localhost:3000/v1/order/:id

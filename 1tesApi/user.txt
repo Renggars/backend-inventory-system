@@ -1,0 +1,19 @@
+//password data user sama semua
+
+post
+http://localhost:3000/v1/user
+{
+    "name": "create",
+    "email": "create@gmail.com",
+    "password": "password1",
+    "role": "admin"
+}
+
+update
+http://localhost:3000/v1/auth/register
+{
+    "name": "update",
+    "email": "update@gmail.com",
+    "password": "password1",
+    "role": "admin"
+}

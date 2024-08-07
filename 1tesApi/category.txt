@@ -1,0 +1,21 @@
+post
+http://localhost:3000/v1/category
+{
+    "name": "create"
+}
+
+get
+http://localhost:3000/v1/category
+
+getById
+http://localhost:3000/v1/category/:id
+
+updateById
+http://localhost:3000/v1/category/:id
+{
+    "name": "update"
+}
+
+delete
+http://localhost:3000/v1/category/:id
+

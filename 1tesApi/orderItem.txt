@@ -1,0 +1,26 @@
+post
+http://localhost:3000/v1/orderItem
+{
+    "orderId" : "4342b7d4-c9ae-4e3f-b381-ab8b8a1d6187",
+    "productId" : "6e346e24-2d1e-472c-8caf-69ad617e5c1b",
+    "quantity" : 1,
+    "unitPrice" : 1000
+}
+
+get
+http://localhost:3000/v1/orderItem
+
+getById
+http://localhost:3000/v1/orderItem/:id
+
+update
+http://localhost:3000/v1/orderItem
+{
+    "orderId" : "update",
+    "productId" : "update",
+    "quantity" : 1,
+    "unitPrice" : 1000
+}
+
+delete
+http://localhost:3000/v1/orderItem/:id

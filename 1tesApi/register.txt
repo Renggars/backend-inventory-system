@@ -1,0 +1,15 @@
+post
+http://localhost:3000/v1/auth/register
+{
+    "name": "create",
+    "email": "create@gmail.com",
+    "password": "password1",
+    "role": "admin"
+}
+
+post
+http://localhost:3000/v1/auth/login
+{
+    "email": "create@gmail.com",
+    "password": "password1"
+}

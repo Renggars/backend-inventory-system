@@ -1,0 +1,29 @@
+post
+http://localhost:3000/v1/product
+{
+    "name": "product",
+    "description": "Ini adalah create product",
+    "price": 1000,
+    "quantityInStock": 10,
+    "categoryId": "",
+    "userId": ""
+}
+
+get
+http://localhost:3000/v1/product
+
+getById
+http://localhost:3000/v1/product/:id
+
+updateById
+http://localhost:3000/v1/product/:id
+{
+    "name": "update",
+    "description": "Ini adalah update product",
+    "price": 2000,
+    "quantityInStock": 20
+}
+
+delete
+http://localhost:3000/v1/product/:id
+
