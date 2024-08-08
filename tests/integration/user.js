@@ -8,10 +8,7 @@ const {
   newUser,
   userTwo,
 } = require("../fixtures/user.fixture");
-const {
-  userOneAccessToken,
-  adminAccessToken,
-} = require("../fixtures/token.fixture");
+const { adminAccessToken } = require("../fixtures/token.fixture");
 const prisma = require("../../prisma");
 
 describe("User routes", () => {
@@ -119,7 +116,7 @@ describe("User routes", () => {
         isEmailVerified: false,
       });
     });
-    it("should return 400 if request data is empty", async () => {
+    it("should return 400 Bad Request when the request body is empty", async () => {
       await request(app)
         .post("/v1/user")
         .set("Authorization", `Bearer ${adminAccessToken}`)

@@ -13,9 +13,7 @@ router
     validate(categoryValidation.createCategory),
     categoryController.createCategory
   )
-  .get(
-    auth(), 
-    categoryController.getCategorys);
+  .get(auth(), categoryController.getCategorys);
 
 router
   .route("/:categoryId")
@@ -24,7 +22,7 @@ router
     validate(categoryValidation.getCategory),
     categoryController.getCategory
   )
-  .patch(
+  .put(
     auth(),
     validate(categoryValidation.updateCategory),
     categoryController.updateCategory

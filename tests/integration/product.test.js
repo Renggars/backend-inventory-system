@@ -1,62 +1,57 @@
 const request = require("supertest");
 const httpStatus = require("http-status");
 const app = require("../../src/app");
-const {
-  userOne,
-  admin,
-  insertUsers,
-  newUser,
-  userTwo,
-} = require("../fixtures/user.fixture");
-const {
-  userOneAccessToken,
-  adminAccessToken,
-} = require("../fixtures/token.fixture");
+const { userOne, insertUsers } = require("../fixtures/user.fixture");
+const { userOneAccessToken } = require("../fixtures/token.fixture");
 const prisma = require("../../prisma");
+const {
+  insertCategorys,
+  categoryOne,
+  newCategory,
+  categoryTwo,
+} = require("../fixtures/category.fixture");
 
-describe("User routes", () => {
-  describe("GET /v1/user", () => {
+describe("Category routes", () => {
+  beforeEach(async () => {
+    await insertUsers([userOne]);
+  });
+  describe("GET /v1/category", () => {
     beforeEach(async () => {
-      await insertUsers([admin, userOne]);
+      await insertCategorys([categoryOne, categoryTwo]);
     });
-    it("should return 200 and successfully retrieve users if query is ok", async () => {
+    it("should return 200 and successfully retrieve categorys if query is ok", async () => {
       const res = await request(app)
-        .get("/v1/user")
+        .get("/v1/category")
         .query({ page: 1, limit: 10 })
-        .set("Authorization", `Bearer ${adminAccessToken}`)
+        .set("Authorization", `Bearer ${userOneAccessToken}`)
         .expect(httpStatus.OK);
       expect(res.body).toEqual({
         status: true,
         statusCode: httpStatus.OK,
         message: expect.any(String),
-        data: expect.arrayContaining([]),
+        data: expect.objectContaining({}),
       });
     });
-    it("should return 400 if query parameters are invalid", async () => {
-      const res = await request(app)
-        .get("/v1/user")
+
+    it("should return 400 Bad Request if pagination query parameters are invalid", async () => {
+      await request(app)
+        .get("/v1/category")
         .query({ page: 0, limit: 0 })
-        .set("Authorization", `Bearer ${adminAccessToken}`)
+        .set("Authorization", `Bearer ${userOneAccessToken}`)
         .expect(httpStatus.BAD_REQUEST);
-      expect(res.body).toEqual({
-        status: false,
-        statusCode: httpStatus.BAD_REQUEST,
-        message: expect.any(String),
-        data: {},
-      });
     });
   });
 
-  describe("GET /v1/user/:id", () => {
+  describe("GET /v1/category/:id", () => {
     beforeEach(async () => {
-      await insertUsers([admin, userOne]);
+      await insertCategorys([categoryOne, categoryTwo]);
     });
-    const id = userOne.id;
+    const id = categoryOne.id;
 
-    it("should return 200 and successfully retrieve users if query is ok", async () => {
+    it("should return 200 and successfully retrieve category if query is ok", async () => {
       const res = await request(app)
-        .get(`/v1/user/${id}`)
-        .set("Authorization", `Bearer ${adminAccessToken}`)
+        .get(`/v1/category/${id}`)
+        .set("Authorization", `Bearer ${userOneAccessToken}`)
         .expect(httpStatus.OK);
 
       expect(res.body).toEqual({
@@ -66,183 +61,150 @@ describe("User routes", () => {
         data: expect.objectContaining({}),
       });
     });
-    it("should return 400 if userId is invalid", async () => {
-      const id = "invalidId";
+
+    it("should return 400 if categoryId is invalid", async () => {
+      const id = "invalid-category-id";
       await request(app)
-        .get(`/v1/user/${id}`)
-        .set("Authorization", `Bearer ${adminAccessToken}`)
+        .get(`/v1/category/${id}`)
+        .set("Authorization", `Bearer ${userOneAccessToken}`)
         .expect(httpStatus.BAD_REQUEST);
     });
   });
 
-  describe("POST /v1/user", () => {
+  describe("POST /v1/category", () => {
     beforeEach(async () => {
-      await insertUsers([admin]);
+      await insertUsers([userOne]);
     });
-    it("should return 201 and successfully create user if request data is ok", async () => {
+    it("should return 201 and successfully create category if request data is ok", async () => {
       const res = await request(app)
-        .post("/v1/user")
-        .set("Authorization", `Bearer ${adminAccessToken}`)
-        .send(newUser)
+        .post("/v1/category")
+        .set("Authorization", `Bearer ${userOneAccessToken}`)
+        .send(newCategory)
         .expect(httpStatus.CREATED);
-      const userData = res.body.data;
+
+      const categoryData = res.body.data;
+
       expect(res.body).toEqual({
         status: true,
         statusCode: httpStatus.CREATED,
         message: expect.any(String),
         data: {
           id: expect.anything(),
-          name: newUser.name,
-          email: newUser.email,
-          password: expect.anything(),
-          role: "user",
+          name: newCategory.name,
           createdAt: expect.anything(),
           updatedAt: expect.anything(),
-          isEmailVerified: false,
         },
       });
-      const dbUser = await prisma.user.findUnique({
+
+      const dbCategory = await prisma.category.findUnique({
         where: {
-          id: userData.id,
+          id: categoryData.id,
         },
       });
-      expect(dbUser).toBeDefined();
-      expect(dbUser.password).not.toBe(newUser.password);
-      expect(dbUser).toMatchObject({
+      expect(dbCategory).toBeDefined();
+      expect(dbCategory).toMatchObject({
         id: expect.anything(),
-        name: newUser.name,
-        email: newUser.email,
-        password: expect.anything(),
-        role: "user",
+        name: newCategory.name,
         createdAt: expect.anything(),
         updatedAt: expect.anything(),
-        isEmailVerified: false,
       });
     });
-    it("should return 400 if request data is empty", async () => {
+
+    it("should return 400 Bad Request when the request body is empty", async () => {
       await request(app)
-        .post("/v1/user")
-        .set("Authorization", `Bearer ${adminAccessToken}`)
+        .post("/v1/category")
+        .set("Authorization", `Bearer ${userOneAccessToken}`)
         .send({})
-        .expect(httpStatus.BAD_REQUEST);
-    });
-    it("should return 400 if request create email data is invalid", async () => {
-      const createUserEmailInvalid = {
-        name: "update",
-        email: "not-email",
-        password: "password1",
-        role: "user",
-      };
-      await request(app)
-        .post(`/v1/user`)
-        .set("Authorization", `Bearer ${adminAccessToken}`)
-        .send(createUserEmailInvalid)
         .expect(httpStatus.BAD_REQUEST);
     });
   });
 
-  describe("PUT /v1/user/:userId", () => {
+  describe("PUT /v1/category/:categoryId", () => {
     beforeEach(async () => {
-      await insertUsers([admin, userOne]);
+      await insertCategorys([categoryOne]);
     });
-    const updateUser = {
+    const updateCategory = {
       name: "update",
-      email: "update@gmail.com",
-      password: "password1",
-      role: "user",
     };
-    const id = userOne.id;
-    it("should return 200 and successfully update user if userId and request data are valid", async () => {
+    const id = categoryOne.id;
+    it("should return 200 and successfully update category if userId and request data are valid", async () => {
       const res = await request(app)
-        .put(`/v1/user/${id}`)
-        .set("Authorization", `Bearer ${adminAccessToken}`)
-        .send(updateUser)
+        .put(`/v1/category/${id}`)
+        .set("Authorization", `Bearer ${userOneAccessToken}`)
+        .send(updateCategory)
         .expect(httpStatus.OK);
+
       expect(res.body).toEqual({
         status: true,
         statusCode: httpStatus.OK,
         message: expect.any(String),
         data: {
           id: expect.anything(),
-          name: updateUser.name,
-          email: updateUser.email,
-          password: expect.anything(),
-          role: "user",
+          name: updateCategory.name,
           createdAt: expect.anything(),
           updatedAt: expect.anything(),
-          isEmailVerified: false,
         },
       });
-      const dbUser = await prisma.user.findUnique({
+      const dbCategory = await prisma.category.findUnique({
         where: {
           id: id,
         },
       });
-      expect(dbUser).toBeDefined();
-      expect(dbUser.password).not.toBe(updateUser.password);
-      expect(dbUser).toMatchObject({
+      expect(dbCategory).toBeDefined();
+      expect(dbCategory).toMatchObject({
         id: expect.anything(),
-        name: updateUser.name,
-        email: updateUser.email,
-        password: expect.anything(),
-        role: "user",
+        name: updateCategory.name,
         createdAt: expect.anything(),
         updatedAt: expect.anything(),
-        isEmailVerified: false,
       });
     });
-    it("should return 400 if request input update data is empty", async () => {
+    it("should return 400 if request input update data category is empty", async () => {
       await request(app)
-        .put(`/v1/user/${id}`)
-        .set("Authorization", `Bearer ${adminAccessToken}`)
+        .put(`/v1/category/${id}`)
+        .set("Authorization", `Bearer ${userOneAccessToken}`)
         .send({})
-        .expect(httpStatus.BAD_REQUEST);
-    });
-    it("should return 400 if request update email data is invalid", async () => {
-      await request(app)
-        .put(`/v1/user/${id}`)
-        .set("Authorization", `Bearer ${adminAccessToken}`)
-        .send({ email: "not-email" })
-        .expect(httpStatus.BAD_REQUEST);
-    });
-    it('should return 400 if role is not "user" or "admin"', async () => {
-      await request(app)
-        .put(`/v1/user/${id}`)
-        .set("Authorization", `Bearer ${adminAccessToken}`)
-        .send({ role: "bukan admin / user" })
         .expect(httpStatus.BAD_REQUEST);
     });
   });
 
-  describe("DELETE /v1/user", () => {
+  describe("DELETE /v1/category/:categoryId", () => {
     beforeEach(async () => {
-      await insertUsers([admin, userOne]);
+      await insertCategorys([categoryOne, categoryTwo]);
     });
-    it("Should return 200 and successfully delete user if userId is valid", async () => {
-      const id = userOne.id;
+
+    it("Should return 200 and successfully delete category if userId is valid", async () => {
+      const id = categoryOne.id;
       const res = await request(app)
-        .delete(`/v1/user/${id}`)
-        .set("Authorization", `Bearer ${adminAccessToken}`)
+        .delete(`/v1/category/${id}`)
+        .set("Authorization", `Bearer ${userOneAccessToken}`)
         .expect(httpStatus.OK);
       expect(res.body).toEqual({
         status: true,
         statusCode: httpStatus.OK,
         message: expect.any(String),
-        data: expect.objectContaining({}),
+        data: null,
       });
-      const userDb = await prisma.user.findUnique({
+      const categoryDb = await prisma.category.findUnique({
         where: {
           id: id,
         },
       });
-      expect(userDb).toBeNull();
+      expect(categoryDb).toBeNull();
     });
+
     it("should return 400 if userId is invalid", async () => {
-      const id = "invalidId";
+      const id = "invalid-category-id";
       await request(app)
-        .delete(`/v1/user/${id}`)
-        .set("Authorization", `Bearer ${adminAccessToken}`)
+        .delete(`/v1/category/${id}`)
+        .set("Authorization", `Bearer ${userOneAccessToken}`)
         .expect(httpStatus.BAD_REQUEST);
+    });
+
+    it("should return 404 Not Found if no parameters are provided for delete", async () => {
+      await request(app)
+        .delete(`/v1/category`)
+        .set("Authorization", `Bearer ${userOneAccessToken}`)
+        .expect(httpStatus.NOT_FOUND);
     });
   });
 });

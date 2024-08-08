@@ -6,35 +6,26 @@ const {
   responseApiCreateSuccess,
   responseApiSuccess,
 } = require("../utils/responseApi");
+const { paginationValidation } = require("../validations");
 
 const createCategory = catchAsync(async (req, res) => {
   const category = await categoryService.createCategory(req.body);
   responseApiCreateSuccess(res, "Create Category Success", category);
-  // res.status(httpStatus.CREATED).send({
-  //   status: httpStatus.CREATED,
-  //   message: "Create Category Success",
-  //   data: category,
-  // });
 });
 
 const getCategorys = catchAsync(async (req, res) => {
-  const { page = 1, limit = 10, ...filter } = req.query;
+  const { error, value } = paginationValidation.querySchema.validate(req.query);
+  if (error) {
+    throw new ApiError(httpStatus.BAD_REQUEST, "Query invalid");
+  }
+
+  const { page, limit, ...filter } = value;
   const result = await categoryService.queryCategorys(filter, {
-    page: Number(page),
-    limit: Number(limit),
+    page,
+    limit,
   });
 
   responseApiSuccess(res, "Get Categorys Success", result);
-  // res.status(httpStatus.OK).send({
-  //   status: httpStatus.OK,
-  //   message: "Get Categorys Success",
-  //   data: result.categorys,
-  //   pagination: {
-  //     totalItems: result.totalItems,
-  //     totalPages: result.totalPages,
-  //     currentPage: result.currentPage,
-  //   },
-  // });
 });
 
 const getCategory = catchAsync(async (req, res) => {
@@ -44,12 +35,6 @@ const getCategory = catchAsync(async (req, res) => {
   }
 
   responseApiSuccess(res, "Get Category Success", category);
-
-  // res.status(httpStatus.OK).send({
-  //   status: httpStatus.OK,
-  //   message: "Get Category Success",
-  //   data: category,
-  // });
 });
 
 const updateCategory = catchAsync(async (req, res) => {
@@ -62,11 +47,6 @@ const updateCategory = catchAsync(async (req, res) => {
   }
 
   responseApiSuccess(res, "Update Category Success", category);
-  // res.status(httpStatus.OK).send({
-  //   status: httpStatus.OK,
-  //   message: "Update Category Success",
-  //   data: category,
-  // });
 });
 
 const deleteCategory = catchAsync(async (req, res) => {
@@ -76,12 +56,7 @@ const deleteCategory = catchAsync(async (req, res) => {
   if (!category) {
     throw new ApiError(httpStatus.NOT_FOUND, "Category not found");
   }
-  responseApiSuccess(res, "Delete Category Success");
-  // res.status(httpStatus.OK).send({
-  //   status: httpStatus.OK,
-  //   message: "Delete Category Success",
-  //   data: null,
-  // });
+  responseApiSuccess(res, "Delete Category Success", null);
 });
 
 module.exports = {
