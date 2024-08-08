@@ -1,4 +1,5 @@
 const userService = require("../services/user.service");
+const ApiError = require("../utils/ApiError");
 const {
   responseApiSuccess,
   responseApiFailed,
@@ -45,9 +46,16 @@ const createUser = async (req, res) => {
 
 const updateUser = async (req, res) => {
   try {
-    const result = await userServic.updateUserById(req.params.userId, req.body);
+    const result = await userService.updateUserById(
+      req.params.userId,
+      req.body
+    );
+    if (!result) {
+      throw new ApiError(httpStatus.NOT_FOUND, "Product not found");
+    }
     responseApiSuccess(res, "Success update user", result);
   } catch (err) {
+    console.log(err);
     responseApiFailed(res, "Failed update user");
   }
 };
@@ -57,7 +65,8 @@ const deleteUser = async (req, res) => {
     const result = await userService.deleteUserById(req.params.userId);
     responseApiSuccess(res, "Success delete user", result);
   } catch (err) {
-    responseApiFailed(res, "Failed update user");
+    console.log(err);
+    responseApiFailed(res, "Failed delete user");
   }
 };
 

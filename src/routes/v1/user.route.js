@@ -14,10 +14,7 @@ router
     validate(userValidation.createUser),
     userController.createUser
   )
-  .get(
-    auth(),
-    authAcces(),
-    userController.getUsers);
+  .get(auth(), authAcces(), userController.getUsers);
 
 router
   .route("/:userId")
@@ -27,7 +24,7 @@ router
     validate(userValidation.getUser),
     userController.getUser
   )
-  .patch(
+  .put(
     auth(),
     authAcces(),
     validate(userValidation.updateUser),

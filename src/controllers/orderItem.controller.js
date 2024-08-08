@@ -2,6 +2,10 @@ const httpStatus = require("http-status");
 const ApiError = require("../utils/ApiError");
 const catchAsync = require("../utils/catchAsync");
 const orderItemService = require("../services/oderItem.service");
+const {
+  responseApiCreateSuccess,
+  responseApiSuccess,
+} = require("../utils/responseApi");
 
 const createOrderItem = catchAsync(async (req, res) => {
   const { orderId, productId, quantity } = req.body;
@@ -11,11 +15,12 @@ const createOrderItem = catchAsync(async (req, res) => {
     quantity
   );
 
-  res.status(httpStatus.CREATED).send({
-    status: httpStatus.CREATED,
-    message: "Create Order Item Succesz",
-    data: orderItem,
-  });
+  responseApiCreateSuccess(res, "Create Order Item Success", orderItem);
+  // res.status(httpStatus.CREATED).send({
+  //   status: httpStatus.CREATED,
+  //   message: "Create Order Item Succesz",
+  //   data: orderItem,
+  // });
 });
 
 const getOrderItems = catchAsync(async (req, res) => {
@@ -24,12 +29,12 @@ const getOrderItems = catchAsync(async (req, res) => {
     page: Number(page),
     limit: Number(limit),
   });
-
-  res.status(httpStatus.OK).send({
-    status: httpStatus.OK,
-    message: "Get Order Items Succes",
-    data: result,
-  });
+  responseApiSuccess(res, "Get Order Items Success", result);
+  // res.status(httpStatus.OK).send({
+  //   status: httpStatus.OK,
+  //   message: "Get Order Items Succes",
+  //   data: result,
+  // });
 });
 
 const getOrderItem = catchAsync(async (req, res) => {
@@ -40,11 +45,12 @@ const getOrderItem = catchAsync(async (req, res) => {
     throw new ApiError(httpStatus.NOT_FOUND, "Order Item not found");
   }
 
-  res.status(httpStatus.OK).send({
-    status: httpStatus.OK,
-    message: "Get Order Item Succes",
-    data: orderItem,
-  });
+  responseApiSuccess(res, "Get Order Item Success", orderItem);
+  // res.status(httpStatus.OK).send({
+  //   status: httpStatus.OK,
+  //   message: "Get Order Item Succes",
+  //   data: orderItem,
+  // });
 });
 
 const updateOrderItem = catchAsync(async (req, res) => {
@@ -56,21 +62,23 @@ const updateOrderItem = catchAsync(async (req, res) => {
     throw new ApiError(httpStatus.NOT_FOUND, "Order Item not found");
   }
 
-  res.status(httpStatus.OK).send({
-    status: httpStatus.OK,
-    message: "Update Order Item Succes",
-    data: orderItem,
-  });
+  responseApiSuccess(res, "Update Order Item Success", orderItem);
+  // res.status(httpStatus.OK).send({
+  //   status: httpStatus.OK,
+  //   message: "Update Order Item Succes",
+  //   data: orderItem,
+  // });
 });
 
 const deleteOrderItem = catchAsync(async (req, res) => {
   await orderItemService.deleteOrderItemById(req.params.orderItemId);
 
-  res.status(httpStatus.OK).send({
-    status: httpStatus.OK,
-    message: "Delete Order Item Succes",
-    data: null,
-  });
+  responseApiSuccess(res, "Delete Order Item Success");
+  // res.status(httpStatus.OK).send({
+  //   status: httpStatus.OK,
+  //   message: "Delete Order Item Succes",
+  //   data: null,
+  // });
 });
 
 module.exports = {

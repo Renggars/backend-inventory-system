@@ -35,7 +35,13 @@ const queryUsers = async (filter, options) => {
   const totalPages = Math.ceil(totalItems / limit);
   const currentPage = page;
 
-  return { users, totalItems, totalPages, currentPage };
+  const pagination = {
+    totalItems,
+    totalPages,
+    currentPage,
+  };
+
+  return { users, pagination };
 };
 
 const getUserByEmail = async (email) => {
