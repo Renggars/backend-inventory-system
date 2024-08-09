@@ -5,8 +5,8 @@ http://localhost:3000/v1/product
     "description": "Ini adalah create product",
     "price": 1000,
     "quantityInStock": 10,
-    "categoryId": "",
-    "userId": ""
+    "categoryId": "59bebb8e-af68-4093-bcff-156ab1de82b3",
+    "userId": "8641e64b-c7af-4ab7-b5ac-29762e9e1ca9"
 }
 
 get
@@ -21,7 +21,9 @@ http://localhost:3000/v1/product/:id
     "name": "update",
     "description": "Ini adalah update product",
     "price": 2000,
-    "quantityInStock": 20
+    "quantityInStock": 20,
+    "categoryId: "",
+    "userId: ""
 }
 
 delete

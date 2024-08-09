@@ -6,31 +6,25 @@ const {
   responseApiSuccess,
   responseApiCreateSuccess,
 } = require("../utils/responseApi");
+const { paginationValidation } = require("../validations");
 
 const createProduct = catchAsync(async (req, res) => {
   const product = await productService.createProduct(req.body);
   responseApiCreateSuccess(res, "Create Product Success", product);
-
-  // res.status(httpStatus.CREATED).send({
-  //   status: httpStatus.CREATED,
-  //   message: "Create Product Success",
-  //   data: product,
-  // });
 });
 
 const getProducts = catchAsync(async (req, res) => {
-  const { page = 1, limit = 10, ...filter } = req.query;
-  const result = await categoryService.queryCategorys(filter, {
-    page: Number(page),
-    limit: Number(limit),
-  });
+  const { error, value } = paginationValidation.querySchema.validate(req.query);
+  if (error) {
+    throw new ApiError(httpStatus.BAD_REQUEST, "Query invalid");
+  }
 
+  const { page, limit, ...filter } = value;
+  const result = await productService.queryProducts(filter, {
+    page,
+    limit,
+  });
   responseApiSuccess(res, "Get Product Success", result);
-  // res.status(httpStatus.OK).send({
-  //   status: httpStatus.OK,
-  //   message: "Get Products Succes",
-  //   data: result,
-  // });
 });
 
 const getProduct = catchAsync(async (req, res) => {
@@ -41,11 +35,6 @@ const getProduct = catchAsync(async (req, res) => {
   }
 
   responseApiSuccess(res, "Get Product Success", product);
-  // res.status(httpStatus.OK).send({
-  //   status: httpStatus.OK,
-  //   message: "Get Product Success",
-  //   data: product,
-  // });
 });
 
 const updateProduct = catchAsync(async (req, res) => {
@@ -59,22 +48,12 @@ const updateProduct = catchAsync(async (req, res) => {
   }
 
   responseApiSuccess(res, "Update Product Success", product);
-  // res.status(httpStatus.OK).send({
-  //   status: httpStatus.OK,
-  //   message: "Update Product Success",
-  //   data: product,
-  // });
 });
 
 const deleteProduct = catchAsync(async (req, res) => {
   await productService.deleteProductById(req.params.productId);
 
-  responseApiSuccess(res, "Delete Product Success");
-  // res.status(httpStatus.OK).send({
-  //   status: httpStatus.OK,
-  //   message: "Delete Product Success",
-  //   data: null,
-  // });
+  responseApiSuccess(res, "Delete Product Success", null);
 });
 
 module.exports = {

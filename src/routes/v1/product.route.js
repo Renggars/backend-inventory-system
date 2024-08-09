@@ -22,7 +22,7 @@ router
     validate(productValidation.getProduct),
     productController.getProduct
   )
-  .patch(
+  .put(
     auth(),
     validate(productValidation.updateProduct),
     productController.updateProduct

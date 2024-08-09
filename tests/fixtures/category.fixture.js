@@ -16,9 +16,9 @@ const newCategory = {
   name: faker.name.findName(),
 };
 
-const insertCategorys = async (category) => {
+const insertCategorys = async (categorys) => {
   await prisma.category.createMany({
-    data: category,
+    data: categorys,
     skipDuplicates: true,
   });
 };
