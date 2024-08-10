@@ -39,8 +39,12 @@ beforeAll(async () => {
 });
 
 beforeEach(async () => {
-  await prisma.user.deleteMany();
+  await prisma.orderItem.deleteMany();
+  await prisma.customerOrder.deleteMany();
+  await prisma.product.deleteMany();
   await prisma.token.deleteMany();
+  await prisma.user.deleteMany();
+  await prisma.category.deleteMany();
 });
 
 afterAll(async () => {
