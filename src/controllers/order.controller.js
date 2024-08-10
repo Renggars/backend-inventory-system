@@ -3,31 +3,27 @@ const ApiError = require("../utils/ApiError");
 const catchAsync = require("../utils/catchAsync");
 const orderService = require("../services/order.service");
 const { responseApiSuccess } = require("../utils/responseApi");
+const { paginationValidation } = require("../validations");
 
 const createOrder = catchAsync(async (req, res) => {
   const order = await orderService.createOrder(req.body);
 
   responseApiSuccess(res, "Create Order Success", order);
-  // res.status(httpStatus.CREATED).send({
-  //   status: httpStatus.CREATED,
-  //   message: "Create Order Succes",
-  //   data: order,
-  // });
 });
 
 const getOrders = catchAsync(async (req, res) => {
-  const { page = 1, limit = 10, ...filter } = req.query;
+  const { error, value } = paginationValidation.querySchema.validate(req.query);
+  if (error) {
+    throw new ApiError(httpStatus.BAD_REQUEST, "Query invalid");
+  }
+
+  const { page, limit, ...filter } = value;
   const result = await orderService.queryOrders(filter, {
-    page: Number(page),
-    limit: Number(limit),
+    page,
+    limit,
   });
 
-  responseApiSuccess(res, "Get Orders Success", result);
-  // res.status(httpStatus.OK).send({
-  //   status: httpStatus.OK,
-  //   message: "Get Orders Succes",
-  //   data: result,
-  // });
+  responseApiSuccess(res, "Get CustomerOrders Success", result);
 });
 
 const getOrder = catchAsync(async (req, res) => {
@@ -37,11 +33,6 @@ const getOrder = catchAsync(async (req, res) => {
   }
 
   responseApiSuccess(res, "Get Order Success", order);
-  // res.status(httpStatus.OK).send({
-  //   status: httpStatus.OK,
-  //   message: "Get Order Succes",
-  //   data: order,
-  // });
 });
 
 const updateOrder = catchAsync(async (req, res) => {
@@ -54,12 +45,6 @@ const updateOrder = catchAsync(async (req, res) => {
   }
 
   responseApiSuccess(res, "Update Order Success", order);
-
-  // res.status(httpStatus.OK).send({
-  //   status: httpStatus.OK,
-  //   message: "Update Order Succes",
-  //   data: order,
-  // });
 });
 
 const deleteOrder = catchAsync(async (req, res) => {
@@ -67,12 +52,7 @@ const deleteOrder = catchAsync(async (req, res) => {
   if (!order) {
     throw new ApiError(httpStatus.NOT_FOUND, "Order not found");
   }
-  responseApiSuccess(res, "Delete Order Success");
-  // res.status(httpStatus.OK).send({
-  //   status: httpStatus.OK,
-  //   message: "Delete Order Succes",
-  //   data: null,
-  // });
+  responseApiSuccess(res, "Delete Order Success", null);
 });
 
 module.exports = { createOrder, getOrder, getOrders, updateOrder, deleteOrder };

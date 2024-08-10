@@ -24,6 +24,7 @@ const getProducts = catchAsync(async (req, res) => {
     page,
     limit,
   });
+
   responseApiSuccess(res, "Get Product Success", result);
 });
 

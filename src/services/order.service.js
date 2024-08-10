@@ -34,7 +34,13 @@ const queryOrders = async (filter, options) => {
   const totalPages = Math.ceil(totalItems / limit);
   const currentPage = page;
 
-  return { orders, totalItems, totalPages, currentPage };
+  const pagination = {
+    totalItems,
+    totalPages,
+    currentPage,
+  };
+
+  return { orders, pagination };
 };
 
 /**
