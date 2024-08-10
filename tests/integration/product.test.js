@@ -265,7 +265,7 @@ describe("Category routes", () => {
   // });
 
   describe("DELETE /v1/product/:productId", () => {
-    const id = product.id;
+    const id = productOne.id;
     it("Should return 200 and successfully delete product if productId is valid", async () => {
       const res = await request(app)
         .delete(`/v1/product/${id}`)
