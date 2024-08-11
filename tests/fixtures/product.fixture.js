@@ -18,14 +18,14 @@ const newProduct = {
   name: faker.commerce.productName(),
   description: faker.commerce.productDescription(),
   price: 2000,
-  quantityInStock: 20,
+  quantityInStock: 10,
   categoryId: categoryTwo.id,
   userId: userTwo.id,
 };
 
 const updateProduct = {
-  name: "update",
-  description: "Ini adalah update product",
+  name: faker.commerce.productName(),
+  description: faker.commerce.productDescription(),
   price: 5000,
   quantityInStock: 50,
   categoryId: categoryTwo.id,

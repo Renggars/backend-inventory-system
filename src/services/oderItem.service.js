@@ -64,7 +64,13 @@ const queryOrderItems = async (filter, options) => {
   const totalPages = Math.ceil(totalItems / limit);
   const currentPage = page;
 
-  return { orderItems, totalItems, totalPages, currentPage };
+  const pagination = {
+    totalItems,
+    totalPages,
+    currentPage,
+  };
+
+  return { orderItems, pagination };
 };
 
 /**
@@ -92,6 +98,27 @@ const updateOrderItemById = async (orderItemId, updateBody) => {
   if (!orderItem) {
     throw new ApiError(httpStatus.NOT_FOUND, "Order item not found");
   }
+
+  if (updateBody.orderId) {
+    const order = await orderService.getOrderById(orderId);
+    if (!order) {
+      throw new ApiError(httpStatus.NOT_FOUND, "Order not found");
+    }
+  }
+
+  if (updateBody.productId) {
+    const product = await productService.getProductById(productId);
+    if (!product) {
+      throw new ApiError(httpStatus.NOT_FOUND, "Product fot found");
+    }
+  }
+
+  let quantity = 0;
+
+  if (updateBody.quantity) {
+    quantity += updateBody.quantity;
+  }
+
   const updateOrderItem = await prisma.orderItem.update({
     where: {
       id: orderItemId,

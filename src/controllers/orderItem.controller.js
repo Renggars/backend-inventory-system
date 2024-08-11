@@ -6,6 +6,7 @@ const {
   responseApiCreateSuccess,
   responseApiSuccess,
 } = require("../utils/responseApi");
+const { paginationValidation } = require("../validations");
 
 const createOrderItem = catchAsync(async (req, res) => {
   const { orderId, productId, quantity } = req.body;
@@ -19,10 +20,15 @@ const createOrderItem = catchAsync(async (req, res) => {
 });
 
 const getOrderItems = catchAsync(async (req, res) => {
-  const { page = 1, limit = 10, ...filter } = req.query;
-  const result = await categoryService.queryCategorys(filter, {
-    page: Number(page),
-    limit: Number(limit),
+  const { error, value } = paginationValidation.querySchema.validate(req.query);
+  if (error) {
+    throw new ApiError(httpStatus.BAD_REQUEST, "Query invalid");
+  }
+
+  const { page, limit, ...filter } = value;
+  const result = await orderItemService.queryOrderItems(filter, {
+    page,
+    limit,
   });
   responseApiSuccess(res, "Get Order Items Success", result);
 });
@@ -36,11 +42,6 @@ const getOrderItem = catchAsync(async (req, res) => {
   }
 
   responseApiSuccess(res, "Get Order Item Success", orderItem);
-  // res.status(httpStatus.OK).send({
-  //   status: httpStatus.OK,
-  //   message: "Get Order Item Succes",
-  //   data: orderItem,
-  // });
 });
 
 const updateOrderItem = catchAsync(async (req, res) => {
@@ -53,22 +54,12 @@ const updateOrderItem = catchAsync(async (req, res) => {
   }
 
   responseApiSuccess(res, "Update Order Item Success", orderItem);
-  // res.status(httpStatus.OK).send({
-  //   status: httpStatus.OK,
-  //   message: "Update Order Item Succes",
-  //   data: orderItem,
-  // });
 });
 
 const deleteOrderItem = catchAsync(async (req, res) => {
   await orderItemService.deleteOrderItemById(req.params.orderItemId);
 
-  responseApiSuccess(res, "Delete Order Item Success");
-  // res.status(httpStatus.OK).send({
-  //   status: httpStatus.OK,
-  //   message: "Delete Order Item Succes",
-  //   data: null,
-  // });
+  responseApiSuccess(res, "Delete Order Item Success", null);
 });
 
 module.exports = {

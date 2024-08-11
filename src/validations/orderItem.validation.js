@@ -6,7 +6,7 @@ const createOrderItem = {
     orderId: Joi.string().custom(objectId).required(),
     productId: Joi.string().custom(objectId).required(),
     quantity: Joi.number().integer().positive().required(),
-    unitPrice: Joi.number().positive().required(),
+    unitPrice: Joi.number().positive(),
   }),
 };
 

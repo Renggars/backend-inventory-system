@@ -14,11 +14,7 @@ router
     validate(orderItemValidation.createOrderItem),
     orderItemController.createOrderItem
   )
-  .get(
-    auth(),
-     authAcces(),
-    orderItemController.getOrderItems
-  );
+  .get(auth(), authAcces(), orderItemController.getOrderItems);
 
 router
   .route("/:orderItemId")
@@ -28,7 +24,7 @@ router
     validate(orderItemValidation.getOrderItem),
     orderItemController.getOrderItem
   )
-  .patch(
+  .put(
     auth(),
     authAcces(),
     validate(orderItemValidation.updateOrderItem),
