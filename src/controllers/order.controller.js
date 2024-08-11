@@ -2,13 +2,16 @@ const httpStatus = require("http-status");
 const ApiError = require("../utils/ApiError");
 const catchAsync = require("../utils/catchAsync");
 const orderService = require("../services/order.service");
-const { responseApiSuccess } = require("../utils/responseApi");
+const {
+  responseApiSuccess,
+  responseApiCreateSuccess,
+} = require("../utils/responseApi");
 const { paginationValidation } = require("../validations");
 
 const createOrder = catchAsync(async (req, res) => {
   const order = await orderService.createOrder(req.body);
 
-  responseApiSuccess(res, "Create Order Success", order);
+  responseApiCreateSuccess(res, "Create Order Success", order);
 });
 
 const getOrders = catchAsync(async (req, res) => {

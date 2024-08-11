@@ -1,18 +1,26 @@
 const request = require("supertest");
 const httpStatus = require("http-status");
 const app = require("../../src/app");
-const { userOne, insertUsers, userTwo } = require("../fixtures/user.fixture");
+const {
+  insertUsers,
+  admin,
+  userTwo,
+  userOne,
+} = require("../fixtures/user.fixture");
 const { adminAccessToken } = require("../fixtures/token.fixture");
 const prisma = require("../../prisma");
 const {
   newCustomerOrder,
   customerOrderOne,
   updateCustomerOrder,
+  customerOrderTwo,
+  insertCustomerOrder,
 } = require("../fixtures/customerOrder.fixture");
 
 describe("Order routes", () => {
   beforeEach(async () => {
-    await insertUsers([userOne, userTwo]);
+    await insertUsers([admin, userOne, userTwo]);
+    await insertCustomerOrder([customerOrderOne, customerOrderTwo]);
   });
   describe("GET /v1/order", () => {
     it("should return 200 and successfully retrieve customerOrders if query is ok", async () => {
@@ -166,11 +174,11 @@ describe("Order routes", () => {
         .expect(httpStatus.BAD_REQUEST);
     });
 
-    it("should return 400 Bad Request when the request body userId is empty", async () => {
+    it("should return 404 Bad Request when the request body userId is empty", async () => {
       newCustomerOrder.userId = "";
       await request(app)
         .post("/v1/order")
-        .set("Authorization", `Bearer ${userOneAccessToken}`)
+        .set("Authorization", `Bearer ${adminAccessToken}`)
         .send(newCustomerOrder)
         .expect(httpStatus.BAD_REQUEST);
     });
@@ -234,7 +242,7 @@ describe("Order routes", () => {
   });
 
   describe("DELETE /v1/order/:customerId", () => {
-    const id = productOne.id;
+    const id = customerOrderOne.id;
     it("Should return 200 and successfully delete customerId if productId is valid", async () => {
       const res = await request(app)
         .delete(`/v1/order/${id}`)

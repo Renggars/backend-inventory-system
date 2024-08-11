@@ -16,11 +16,6 @@ const createOrderItem = catchAsync(async (req, res) => {
   );
 
   responseApiCreateSuccess(res, "Create Order Item Success", orderItem);
-  // res.status(httpStatus.CREATED).send({
-  //   status: httpStatus.CREATED,
-  //   message: "Create Order Item Succesz",
-  //   data: orderItem,
-  // });
 });
 
 const getOrderItems = catchAsync(async (req, res) => {
@@ -30,11 +25,6 @@ const getOrderItems = catchAsync(async (req, res) => {
     limit: Number(limit),
   });
   responseApiSuccess(res, "Get Order Items Success", result);
-  // res.status(httpStatus.OK).send({
-  //   status: httpStatus.OK,
-  //   message: "Get Order Items Succes",
-  //   data: result,
-  // });
 });
 
 const getOrderItem = catchAsync(async (req, res) => {

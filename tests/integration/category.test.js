@@ -158,6 +158,7 @@ describe("Category routes", () => {
         updatedAt: expect.anything(),
       });
     });
+
     it("should return 400 if request input update data category is empty", async () => {
       await request(app)
         .put(`/v1/category/${id}`)
