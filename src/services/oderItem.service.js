@@ -95,14 +95,10 @@ const getOrderItemById = async (id) => {
  */
 const updateOrderItemById = async (orderItemId, updateBody) => {
   const { orderId, productId, quantity } = updateBody;
-  console.log(orderId);
-  console.log(productId);
-  console.log(quantity);
-
-  const orderItem = await prisma.orderItem.getOrderItemById(orderItemId);
+  const orderItem = await getOrderItemById(orderItemId);
 
   const orderDb = await orderService.getOrderById(orderItem.orderId);
-  orderDb.totalPrice -= orderItem.quantity * orderItem.quantity;
+  orderDb.totalPrice -= orderItem.unitPrice * orderItem.quantity;
   await orderService.updateOrderById(orderItem.orderId, {
     totalPrice: orderDb.totalPrice,
   });
@@ -111,18 +107,6 @@ const updateOrderItemById = async (orderItemId, updateBody) => {
   productDb.quantityInStock += orderItem.quantity;
   await productService.updateProductById(orderItem.productId, {
     quantityInStock: productDb.quantityInStock,
-  });
-
-  await prisma.orderItem.update({
-    where: {
-      id: orderItemId,
-    },
-    data: {
-      orderId: "",
-      productId: "",
-      quantity: 0,
-      unitPrice: 0,
-    },
   });
 
   const order = await orderService.getOrderById(orderId);
@@ -148,7 +132,12 @@ const updateOrderItemById = async (orderItemId, updateBody) => {
     where: {
       id: orderItemId,
     },
-    data: updateBody,
+    data: {
+      orderId,
+      productId,
+      quantity,
+      unitPrice,
+    },
   });
 
   return updateOrderItem;
