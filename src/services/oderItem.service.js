@@ -94,30 +94,55 @@ const getOrderItemById = async (id) => {
  * @returns {Promise<OrderItem>}
  */
 const updateOrderItemById = async (orderItemId, updateBody) => {
-  const orderItem = await getOrderItemById(orderItemId);
-  if (!orderItem) {
-    throw new ApiError(httpStatus.NOT_FOUND, "Order item not found");
+  const { orderId, productId, quantity } = updateBody;
+  console.log(orderId);
+  console.log(productId);
+  console.log(quantity);
+
+  const orderItem = await prisma.orderItem.getOrderItemById(orderItemId);
+
+  const orderDb = await orderService.getOrderById(orderItem.orderId);
+  orderDb.totalPrice -= orderItem.quantity * orderItem.quantity;
+  await orderService.updateOrderById(orderItem.orderId, {
+    totalPrice: orderDb.totalPrice,
+  });
+
+  const productDb = await productService.getProductById(orderItem.productId);
+  productDb.quantityInStock += orderItem.quantity;
+  await productService.updateProductById(orderItem.productId, {
+    quantityInStock: productDb.quantityInStock,
+  });
+
+  await prisma.orderItem.update({
+    where: {
+      id: orderItemId,
+    },
+    data: {
+      orderId: "",
+      productId: "",
+      quantity: 0,
+      unitPrice: 0,
+    },
+  });
+
+  const order = await orderService.getOrderById(orderId);
+  if (!order) {
+    throw new ApiError(httpStatus.NOT_FOUND, "Order not found");
   }
 
-  if (updateBody.orderId) {
-    const order = await orderService.getOrderById(orderId);
-    if (!order) {
-      throw new ApiError(httpStatus.NOT_FOUND, "Order not found");
-    }
+  const product = await productService.getProductById(productId);
+  if (!product) {
+    throw new ApiError(httpStatus.NOT_FOUND, "Product fot found");
   }
 
-  if (updateBody.productId) {
-    const product = await productService.getProductById(productId);
-    if (!product) {
-      throw new ApiError(httpStatus.NOT_FOUND, "Product fot found");
-    }
-  }
+  const unitPrice = product.price;
+  order.totalPrice += unitPrice * quantity;
+  await orderService.updateOrderById(orderId, { totalPrice: order.totalPrice });
 
-  let quantity = 0;
-
-  if (updateBody.quantity) {
-    quantity += updateBody.quantity;
-  }
+  product.quantityInStock -= quantity;
+  await productService.updateProductById(productId, {
+    quantityInStock: product.quantityInStock,
+  });
 
   const updateOrderItem = await prisma.orderItem.update({
     where: {

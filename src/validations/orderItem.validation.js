@@ -22,9 +22,9 @@ const updateOrderItem = {
   }),
   body: Joi.object()
     .keys({
-      orderId: Joi.string().custom(objectId),
-      productId: Joi.string().custom(objectId),
-      quantity: Joi.number().integer().positive(),
+      orderId: Joi.string().custom(objectId).required(),
+      productId: Joi.string().custom(objectId).required(),
+      quantity: Joi.number().integer().positive().required(),
       unitPrice: Joi.number().positive(),
     })
     .min(1),
