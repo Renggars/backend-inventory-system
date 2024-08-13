@@ -2,8 +2,8 @@ const httpStatus = require("http-status");
 const prisma = require("../../prisma/index");
 const ApiError = require("../utils/ApiError");
 
-const productService = require("../services/product.service");
-const orderService = require("../services/order.service");
+const productService = require("./product.service");
+const orderService = require("./order.service");
 
 /**
  * Create a orderItem
