@@ -14,6 +14,16 @@ const productOne = {
   userId: userOne.id,
 };
 
+const productTwo = {
+  id: v4(),
+  name: faker.commerce.productName(),
+  description: faker.commerce.productDescription(),
+  price: 5000,
+  quantityInStock: 10,
+  categoryId: categoryOne.id,
+  userId: userOne.id,
+};
+
 const newProduct = {
   name: faker.commerce.productName(),
   description: faker.commerce.productDescription(),
@@ -41,6 +51,7 @@ const insertProduct = async (product) => {
 
 module.exports = {
   productOne,
+  productTwo,
   newProduct,
   updateProduct,
   insertProduct,

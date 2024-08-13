@@ -121,7 +121,9 @@ const updateOrderItemById = async (orderItemId, updateBody) => {
 
   const unitPrice = product.price;
   order.totalPrice += unitPrice * quantity;
-  await orderService.updateOrderById(orderId, { totalPrice: order.totalPrice });
+  await orderService.updateOrderById(orderId, {
+    totalPrice: order.totalPrice,
+  });
 
   product.quantityInStock -= quantity;
   await productService.updateProductById(productId, {
