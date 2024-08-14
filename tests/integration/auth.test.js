@@ -71,7 +71,7 @@ describe("Auth routes", () => {
         access: { token: expect.anything(), expires: expect.anything() },
         refresh: { token: expect.anything(), expires: expect.anything() },
       });
-    });
+    }); 
 
     test("should return 400 error if email is invalid", async () => {
       newUser.email = "invalidEmail";

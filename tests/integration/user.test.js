@@ -1,6 +1,6 @@
 const request = require("supertest");
 const httpStatus = require("http-status");
-const app = require("../../inventory-testing/src/app");
+const app = require("../../src/app");
 const {
   userOne,
   admin,
@@ -9,7 +9,7 @@ const {
   userTwo,
 } = require("../fixtures/user.fixture");
 const { adminAccessToken } = require("../fixtures/token.fixture");
-const prisma = require("../../inventory-testing/prisma");
+const prisma = require("../../prisma");
 
 describe("User routes", () => {
   describe("GET /v1/user", () => {
