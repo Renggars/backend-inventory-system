@@ -250,3 +250,40 @@ Delete User
   }
 }
    
+3. Category Resource
+   GET Categorys
+      GET /v1/category
+
+      output
+      {
+     "status": true,
+     "statusCode": 200,
+     "message": "Get Categorys Success",
+     "data": {
+       "categorys": [
+         {
+           "id": "1",
+           "name": "...",
+           "createdAt": "...",
+           "updatedAt": "..."
+         },
+   
+        /*...*/
+         
+         {
+           "id": "50",
+           "name": "...",
+           "createdAt": "...",
+           "updatedAt": "..."
+         }
+       ],
+       "pagination": {
+         "totalItems": ...,
+         "totalPages": ...,
+         "currentPage": 1
+       }
+     }
+   }
+
+   GET Category By Id
+      GEt /v1/category/:id
