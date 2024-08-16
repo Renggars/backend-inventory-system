@@ -287,3 +287,442 @@ Delete User
 
    GET Category By Id
       GEt /v1/category/:id
+
+      output
+      {
+        "status": true,
+        "statusCode": 200,
+        "message": "Get Category Success",
+        "data": {
+          "id": "...",
+          "name": "...",
+          "createdAt": "...",
+          "updatedAt": "..."
+        }
+      }
+
+   Add New category
+      POST /v1/category
+
+      input
+      {
+       "name": "create"
+      }
+
+      output
+      {
+        "status": true,
+        "statusCode": 201,
+        "message": "Create Category Success",
+        "data": {
+          "id": "...",
+          "name": "...",
+          "createdAt": "...",
+          "updatedAt": "...."
+        }
+      }
+
+   Update Category
+      PUT /v1/category/:id
+   
+      Input
+      {
+          "name": "update"
+      }
+
+      Output
+      {
+        "status": true,
+        "statusCode": 200,
+        "message": "Update Category Success",
+        "data": {
+          "id": "...",
+          "name": "...",
+          "createdAt": "...",
+          "updatedAt": "..."
+        }
+      }
+
+   Delete Category
+      DELETE /v1/category/:id
+      Output
+      {
+        "status": true,
+        "statusCode": 200,
+        "message": "Delete Category Success",
+        "data": null
+      }
+
+4. Product Resource
+   
+   Get All Product
+      GET /v1/product
+      Output
+      {
+        "status": true,
+        "statusCode": 200,
+        "message": "Get Product Success",
+        "data": {
+          "products": [
+            {
+               "id": "1",
+              "name": "...",
+              "description": "...",
+              "price": ...,
+              "quantityInStock": ...,
+              "categoryId": "...",
+              "userId": "...",
+              "createdAt": "...",
+              "updatedAt": "..."
+            },
+
+             /*...*/
+
+            {
+              "id": "50",
+              "name": "...",
+              "description": "...",
+              "price": ...,
+              "quantityInStock": ...,
+              "categoryId": "...",
+              "userId": "...",
+              "createdAt": "...",
+              "updatedAt": "..."
+            }
+          ],
+          "pagination": {
+            "totalItems": ...,
+            "totalPages": ....,
+            "currentPage": 1
+          }
+        }
+      }
+
+   Get Product By Id
+      GET /v1/product/:id
+
+      Output
+      {
+        "status": true,
+        "statusCode": 200,
+        "message": "Get Product Success",
+        "data": {
+            "id": "50",
+            "name": "...",
+            "description": "...",
+            "price": ...,
+            "quantityInStock": ...,
+            "categoryId": "...",
+            "userId": "...",
+            "createdAt": "...",
+            "updatedAt": "..."
+        }
+      }
+
+   Add New Product
+      POST /v1/product
+      Input
+      {
+          "name": "product",
+          "description": "Ini adalah create product",
+          "price": 1000,
+          "quantityInStock": 10,
+          "categoryId": "59bebb8e-af68-4093-bcff-156ab1de82b3",
+          "userId": "8641e64b-c7af-4ab7-b5ac-29762e9e1ca9"
+      }
+
+      Output
+      {
+        "status": true,
+        "statusCode": 201,
+        "message": "Create Product Success",
+        "data": {
+            "id": "1",
+            "name": "...",
+            "description": "...",
+            "price": ...,
+            "quantityInStock": ...,
+            "categoryId": "...",
+            "userId": "...",
+            "createdAt": "...",
+            "updatedAt": "..."
+        }
+      }
+
+   Update Product
+      PUT /v1/product/:id
+      Input
+      {
+          "name": "product",
+          "description": "Ini adalah create product",
+          "price": 25000,
+          "quantityInStock": 25,
+          "categoryId": "c671ff4d-991e-48e4-9ce2-72e6fca77d0a",
+          "userId": "df110501-5ed5-4530-87f7-6a9050413d98"
+      }
+
+      Output
+      {
+        "status": true,
+        "statusCode": 200,
+        "message": "Update Product Success",
+        "data": {
+            "id": "1",
+            "name": "...",
+            "description": "...",
+            "price": ...,
+            "quantityInStock": ...,
+            "categoryId": "...",
+            "userId": "...",
+            "createdAt": "...",
+            "updatedAt": "..."
+        }
+      }
+
+   Delete Product
+      DELETE /v1/product/:id
+      Output
+      {
+        "status": true,
+        "statusCode": 200,
+        "message": "Delete Product Success",
+        "data": null
+      }
+
+5. Order Resource
+     Get All Order
+      GET /v1/order
+      Ouput
+      {
+      "status": true,
+      "statusCode": 200,
+      "message": "Get CustomerOrders Success",
+      "data": {
+       "orders": [
+         {
+           "id": "1",
+           "totalPrice": ...,
+           "customerName": "...",
+           "customerEmail": "",
+           "userId": "...",
+           "createdAt": "...",
+           "updatedAt": "..."
+         },
+      
+          /*...*/
+      
+         {
+           "id": "50",
+           "totalPrice": ...,
+           "customerName": "...",
+           "customerEmail": "",
+           "userId": "...",
+           "createdAt": "...",
+           "updatedAt": "..."
+         }
+       ],
+        "pagination": {
+          "totalItems": ...,
+          "totalPages": ....,
+          "currentPage": 1
+       }
+      }
+     }
+
+   Get Single Product
+      GET /v1/order/:id
+
+      Output
+      {
+        "status": true,
+        "statusCode": 200,
+        "message": "Get Order Success",
+        "data": {
+           "id": "1",
+           "totalPrice": ...,
+           "customerName": "...",
+           "customerEmail": "",
+           "userId": "...",
+           "createdAt": "...",
+           "updatedAt": "..."
+      }
+
+   Add New Order
+      POST /v1/order
+      Input
+      {
+          "totalPrice": 0,
+          "customerName": "create",
+          "customerEmail": "create@gmail.com",
+          "userId": "cc672e85-d6a0-415c-932c-6c39118fe221"
+      }
+
+      Ouput
+      {
+        "status": true,
+        "statusCode": 200,
+        "message": "Get Order Success",
+        "data": {
+           "id": "1",
+           "totalPrice": ...,
+           "customerName": "...",
+           "customerEmail": "",
+           "userId": "...",
+           "createdAt": "...",
+           "updatedAt": "..."
+        }
+      }
+
+   Edit Order
+      PUT /v1/order/:id
+      Input
+      {
+          "totalPrice": 0,
+          "customerName": "update",
+          "customerEmail": "update@gmail.com"
+      }
+
+      Output
+      {
+        "status": true,
+        "statusCode": 200,
+        "message": "Get Order Success",
+        "data": {
+           "id": "1",
+           "totalPrice": ...,
+           "customerName": "...",
+           "customerEmail": "",
+           "userId": "...",
+           "createdAt": "...",
+           "updatedAt": "..."
+        }
+      }
+
+   Delete Product
+      DELETE /v1/order/:id
+
+      Output
+      {
+        "status": true,
+        "statusCode": 200,
+        "message": "Delete Order Success",
+        "data": null
+      }
+
+   6. Order Item
+      Get All Order Item
+      GET /v1/orderItem
+      Output
+      {
+        "status": true,
+        "statusCode": 200,
+        "message": "Get Order Items Success",
+        "data": {
+          "orderItems": [
+            {
+              "id": "1",
+              "orderId": "...",
+              "productId": "...",
+              "quantity": ...,
+              "unitPrice": ...,
+              "createdAt": "...",
+              "updatedAt": "..."
+            },
+      
+             /*...*/
+         
+            {
+              "id": "50",
+              "orderId": "...",
+              "productId": "...",
+              "quantity": ...,
+              "unitPrice": ...,
+              "createdAt": "...",
+              "updatedAt": "..."
+            },
+          ],
+          "pagination": {
+            "totalItems": ...,
+            "totalPages": ...,
+            "currentPage": 1
+          }
+        }
+      }
+
+   Get Single Order Item
+      GET /v1/orderItem/:id
+      Output
+      {
+        "status": true,
+        "statusCode": 200,
+        "message": "Get Order Item Success",
+        "data": {
+           "id": "1",
+           "orderId": "...",
+           "productId": "...",
+           "quantity": ...,
+           "unitPrice": ...,
+           "createdAt": "...",
+           "updatedAt": "..."
+        }
+      }
+
+   Add New Order Item
+      POST /v1/orderItem
+      Input
+      {
+          "orderId" : "2b4f3207-a389-4920-b87b-3eeac6de4f01",
+          "productId" : "4f30396f-a94c-414b-b4d4-bbe6ba1fb34b",
+          "quantity" : 1
+      }
+
+      Ouput
+      {
+        "status": true,
+        "statusCode": 201,
+        "message": "Create Order Item Success",
+        "data": {
+           "id": "...",
+           "orderId": "...",
+           "productId": "...",
+           "quantity": ...,
+           "unitPrice": ...,
+           "createdAt": "...",
+           "updatedAt": "..."
+        }
+      }
+
+   Update Order Item
+      PUT /v1/orderItem/:id
+      Input
+      {
+          "orderId" : "update",
+          "productId" : "update",
+          "quantity" : 1,
+      }
+
+      output
+      {
+        "status": true,
+        "statusCode": 200,
+        "message": "Update Order Item Success",
+        "data": {
+           "id": "...",
+           "orderId": "...",
+           "productId": "...",
+           "quantity": ...,
+           "unitPrice": ...,
+           "createdAt": "...",
+           "updatedAt": "..."   
+        }
+      }
+
+   Delete Order Item
+      DELETE /v1/orderItem/:id
+      Output
+      {
+        "status": true,
+        "statusCode": 200,
+        "message": "Delete Order Item Success",
+        "data": null
+      }
