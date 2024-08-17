@@ -81,7 +81,7 @@ The registration input must conform to the following validation schema:
       "name": "Data Utama",
       "email": "create@gmail.com",
       "password": "$2a$08$ExA83CE81zHCNPhEKrTr9ON6RlV5B38By3rovaEuqbLGCw4AbifzG",
-      "role": "....,
+      "role": "...",
       "createdAt": "...",
       "updatedAt": "...",
       "isEmailVerified": false
@@ -101,10 +101,10 @@ The registration input must conform to the following validation schema:
 ```
 
 
-2. User Resourse
+## 2. User Resourse
 
-Get Users
-   GET USERS /v1/user
+- ### Get All Users
+- **Endpoint:** `GET /v1/user`
    Input Bearer
    "Bearer" : "Input access token here"
 
