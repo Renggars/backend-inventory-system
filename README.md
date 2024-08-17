@@ -15,7 +15,7 @@
     "role": "user"
 }
 
-Validation Schema
+#### Validation Schema
 The registration input must conform to the following validation schema:
 
 - **email** must be a valid email address
@@ -24,7 +24,7 @@ The registration input must conform to the following validation schema:
 - **role** can be either `"user"` or `"admin"`, with `"user"` as the default value
 
 
-Sample Output 
+#### Sample Output 
 {
   "data": {
     "userCreated": {
