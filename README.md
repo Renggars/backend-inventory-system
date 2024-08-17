@@ -1,6 +1,13 @@
 ## 1. Auth Resource
+
 ### Register
+
 **Endpoint:** `POST /v1/auth/register`
+
+**Description:** This endpoint allows new users to register by providing their name, email, password, and role.
+
+#### Sample Input
+````json
    Sample Input
 {
     "name": "create",
@@ -9,7 +16,16 @@
     "role": "user"
 }
 
-output 
+Validation Schema
+The registration input must conform to the following validation schema:
+
+- **email** must be a valid email address
+- **password** must be atleast 8 characters and atleast 1 letter and 1 number
+- **name** is a required field
+- **role** can be either `"user"` or `"admin"`, with `"user"` as the default value
+
+
+Sample Output 
 {
   "data": {
     "userCreated": {
@@ -34,6 +50,8 @@ output
     }
   }
 }
+
+
 
 
 Login 
