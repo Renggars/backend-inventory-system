@@ -1,6 +1,6 @@
 ## 1. Auth Resource
-Register
-   POST /v1/auth/register
+### Register
+**Endpoint: ** `POST /v1/auth/register`
    Sample Input
 {
     "name": "create",
