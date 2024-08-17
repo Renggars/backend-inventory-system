@@ -14,7 +14,7 @@
     "password": "password1",
     "role": "user"
 }
-````
+```
 
 #### Validation Schema
 The registration input must conform to the following validation schema:
@@ -51,12 +51,15 @@ The registration input must conform to the following validation schema:
     }
   }
 }
+```
 
 
 
+### Login 
 
-Login 
-POST /v1/auth/login
+**Endpoint:** `POST /v1/auth/login`
+
+**Description:**
 Sample Input
 {
     "email": "create@gmail.com",
