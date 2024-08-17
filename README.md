@@ -1,6 +1,6 @@
 ## 1. Auth Resource
 
-### Register
+- ### Register
 
 **Endpoint:** `POST /v1/auth/register`
 
@@ -55,7 +55,7 @@ The registration input must conform to the following validation schema:
 
 
 
-### Login 
+- ### Login 
 
 **Endpoint:** `POST /v1/auth/login`
 
