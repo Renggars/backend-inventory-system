@@ -26,6 +26,7 @@ The registration input must conform to the following validation schema:
 
 
 #### Sample Output 
+```json
 {
   "data": {
     "userCreated": {
