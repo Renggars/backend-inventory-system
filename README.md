@@ -7,13 +7,14 @@
 **Description:** This endpoint allows new users to register by providing their name, email, password, and role.
 
 #### Sample Input
-````json
+```json
 {
     "name": "create",
     "email": "create@gmail.com",
     "password": "password1",
     "role": "user"
 }
+````
 
 #### Validation Schema
 The registration input must conform to the following validation schema:
