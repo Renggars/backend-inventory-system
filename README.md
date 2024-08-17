@@ -2,7 +2,7 @@
 
 - ### Register
 
-**Endpoint:** `POST /v1/auth/register`
+**Endpoint: `POST /v1/auth/register`**
 
 **Description:** This endpoint allows new users to register by providing their name, email, password, and role.
 
