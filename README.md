@@ -104,11 +104,12 @@ The registration input must conform to the following validation schema:
 ## 2. User Resourse
 
 - ### Get All Users
-- **Endpoint:** `GET /v1/user`
-   Input Bearer
-   "Bearer" : "Input access token here"
-
-   Output
+**Endpoint:** `GET /v1/user`
+```
+Authorization : Bearer <Input access token here>
+```
+#### Sample Output
+```json
    {
   "status": true,
   "statusCode": 200,
@@ -146,6 +147,7 @@ The registration input must conform to the following validation schema:
     }
   }
 }
+```
 
 Get Users Limit & Page results
    GET /v1/user?page=1&limit=5
