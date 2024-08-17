@@ -321,10 +321,10 @@ The request body should be a JSON object containing any of the following fields:
 }
 ```
 
-- ##Delete User
-** Endpoint: `DELETE /v1/user/:userId`**
+- ## Delete User
+**Endpoint: `DELETE /v1/user/:userId`**
 
-** Descriptio:** This endpoint allows you to delete a user specified by `userId`.
+**Description:** This endpoint allows you to delete a user specified by `userId`.
 
 #### Validation Schema
 **URL Parameters:**'
