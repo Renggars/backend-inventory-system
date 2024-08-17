@@ -1,4 +1,4 @@
-1. Auth Resource
+## 1. Auth Resource
 Register
    POST /v1/auth/register
    Sample Input
