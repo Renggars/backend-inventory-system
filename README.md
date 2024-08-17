@@ -292,7 +292,7 @@ The request body should be a JSON object containing any of the following fields:
 - **`password`** (optional): A string that must be at least 8 characters long, containing at least one letter and one number.
 - **`role`** (optional): A string that can either be `"user"` or `"admin"`. The default value is `"user"`.
 - 
-####Example Request
+#### Example Request
 ```json
 {
 "name": "update",
@@ -302,7 +302,7 @@ The request body should be a JSON object containing any of the following fields:
 }
 ```
 
-### Example Response
+#### Example Response
 ```json
 {
     "status": true,
