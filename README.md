@@ -59,14 +59,21 @@ The registration input must conform to the following validation schema:
 
 **Endpoint:** `POST /v1/auth/login`
 
-**Description:**
-Sample Input
+**Description:** This endpoint allows users to log in by providing their email and password 
+
+#### Sample Input
+```json
 {
     "email": "create@gmail.com",
     "password": "password1"
 }
+```
+#### Validation Schema
+- **email** is required field and must be a valid email address
+- **passwoed** is a required field and must match the user's registered password
 
-Output 
+### Sample Output 
+```json
 {
   "data": {
     "user": {
@@ -91,6 +98,7 @@ Output
     }
   }
 }
+```
 
 
 2. User Resourse
