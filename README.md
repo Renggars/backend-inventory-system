@@ -212,7 +212,7 @@ Authorization : Bearer <Input access token here>
 **Description:** Retrieve a specific user by their ID.
 
 #### Validation Schema
-**URL Parameters:**
+URL Parameters:
 - `userId` (required): The unique identifier of the user to be updated. This should be a valid ObjectId
   
 #### Example Response
