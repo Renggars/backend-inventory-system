@@ -280,10 +280,10 @@ URL Parameters:
 **Description:** Update an existing user's information.
 
 #### Validation Schema
-**URL Parameters:**'
+URL Parameters:
 - `userId` (required): The unique identifier of the user to be updated. This should be a valid ObjectId
 
-**Request Body:**
+Request Body:
 
 The request body should be a JSON object containing any of the following fields:
 
