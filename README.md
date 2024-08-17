@@ -8,7 +8,6 @@
 
 #### Sample Input
 ````json
-   Sample Input
 {
     "name": "create",
     "email": "create@gmail.com",
