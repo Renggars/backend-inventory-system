@@ -6,7 +6,15 @@
 
 **Description:** This endpoint allows new users to register by providing their name, email, password, and role.
 
-#### Sample Input
+#### Validation Schema
+The registration input must conform to the following validation schema:
+
+- **email** must be a valid email address
+- **password** must be atleast 8 characters and atleast 1 letter and 1 number
+- **name** is a required field
+- **role** can be either `"user"` or `"admin"`, with `"user"` as the default value
+
+#### Example Input
 ```json
 {
     "name": "create",
@@ -16,16 +24,7 @@
 }
 ```
 
-#### Validation Schema
-The registration input must conform to the following validation schema:
-
-- **email** must be a valid email address
-- **password** must be atleast 8 characters and atleast 1 letter and 1 number
-- **name** is a required field
-- **role** can be either `"user"` or `"admin"`, with `"user"` as the default value
-
-
-#### Sample Output 
+#### Example Response
 ```json
 {
   "data": {
@@ -61,18 +60,20 @@ The registration input must conform to the following validation schema:
 
 **Description:** This endpoint allows users to log in by providing their email and password 
 
-#### Sample Input
+#### Validation Schema
+- **email** is required field and must be a valid email address
+- **password** is a required field and must match the user's registered password
+
+
+#### Example Input
 ```json
 {
     "email": "create@gmail.com",
     "password": "password1"
 }
 ```
-#### Validation Schema
-- **email** is required field and must be a valid email address
-- **passwoed** is a required field and must match the user's registered password
 
-### Sample Output 
+#### Example Response
 ```json
 {
   "data": {
@@ -104,11 +105,16 @@ The registration input must conform to the following validation schema:
 ## 2. User Resourse
 
 - ### Get All Users
-**Endpoint:** `GET /v1/user`
+**Endpoint: `GET /v1/user`**
+
+**Description:** Retrieve a list of users.
+
+#### Headers:
 ```
 Authorization : Bearer <Input access token here>
 ```
-#### Sample Output
+
+#### Example Response
 ```json
    {
   "status": true,
@@ -149,8 +155,18 @@ Authorization : Bearer <Input access token here>
 }
 ```
 
-Get Users Limit & Page results
-   GET /v1/user?page=1&limit=5
+- ### Get Users with Pagination
+**Endpoint: GET `/v1/user?page=1&limit=5`**
+
+**Description:** Retrieve a list of users with pagination options.
+
+#### Headers:
+```
+Authorization : Bearer <Input access token here>
+```
+
+#### Example Response
+```json
 {
   "status": true,
   "statusCode": 200,
@@ -188,11 +204,20 @@ Get Users Limit & Page results
     }
   }
 }
+```
 
-Get User By Id
-   GET /v1/user/:id
-   Output 
-   {
+- ## Get User By Id
+**Endpoint: `GET /v1/user/:userId`**
+
+**Description:** Retrieve a specific user by their ID.
+
+#### Validation Schema
+**URL Parameters:**'
+- `userId` (required): The unique identifier of the user to be updated. This should be a valid ObjectId
+  
+#### Example Response
+```json
+{
   "status": true,
   "statusCode": 200,
   "message": "Success get user",
@@ -207,18 +232,31 @@ Get User By Id
     "isEmailVerified": false
   }
 }
+```
 
-Add New User
-   POST /v1/user
-   Sample Input
-   {
-    "name": "create",
-    "email": "create@gmail.com",
-    "password": "password1",
-    "role": "admin"
-   }
+- ## Add New User
+**Endpotin: `POST /v1/user`**
 
-   Output
+**Description:** Create a new user.
+
+#### Validation Schema
+- **name** is a required field
+- **email** must be a valid email address
+- **password** must be atleast 8 characters and atleast 1 letter and 1 number
+- **role** can be either `"user"` or `"admin"`, with `"user"` as the default value
+
+#### Example Request
+```json
+{
+"name": "create",
+"email": "create@gmail.com",
+"password": "password1",
+"role": "admin"
+}
+```
+
+#### Example Response
+```json
 {
   "status": true,
   "statusCode": 201,
@@ -234,23 +272,43 @@ Add New User
     "isEmailVerified": false
   }
 }
+```
 
-Update User
-   PUT /v1/user/:id
-   Sample Input
-   {
-    "name": "update",
-    "email": "update@gmail.com",
-    "password": "password1",
-    "role": "admin"
-   }
+- ## Update User
+**Endpoint: `PUT /v1/user/:userId`**
 
-   Output
-   {
-  "status": true,
-  "statusCode": 200,
-  "message": "Success update user",
-  "data": {
+**Description:** Update an existing user's information.
+
+#### Validation Schema
+**URL Parameters:**'
+- `userId` (required): The unique identifier of the user to be updated. This should be a valid ObjectId
+
+**Request Body:**
+
+The request body should be a JSON object containing any of the following fields:
+
+- **`name`** (optional): A string representing the user's name.
+- **`email`** (optional): A valid email address.
+- **`password`** (optional): A string that must be at least 8 characters long, containing at least one letter and one number.
+- **`role`** (optional): A string that can either be `"user"` or `"admin"`. The default value is `"user"`.
+- 
+####Example Request
+```json
+{
+"name": "update",
+"email": "update@gmail.com",
+"password": "password1",
+"role": "admin"
+}
+```
+
+### Example Response
+```json
+{
+    "status": true,
+    "statusCode": 200,
+    "message": "Success update user",
+    "data": {
     "id": "1",
     "name": "...",
     "email": "...",
@@ -259,12 +317,21 @@ Update User
     "createdAt": "...",
     "updatedAt": "...",
     "isEmailVerified": false
-  }
+    }
 }
+```
 
-Delete User
-   DELETE /v1/user/:id
+- ##Delete User
+** Endpoint: `DELETE /v1/user/:userId`**
 
+** Descriptio:** This endpoint allows you to delete a user specified by `userId`.
+
+#### Validation Schema
+**URL Parameters:**'
+- `userId` (required): The unique identifier of the user to be updated. This should be a valid ObjectId
+
+#### Example Response
+```json
    output
    {
   "status": true,
@@ -281,7 +348,8 @@ Delete User
     "isEmailVerified": false
   }
 }
-   
+```
+
 3. Category Resource
    GET Categorys
       GET /v1/category
