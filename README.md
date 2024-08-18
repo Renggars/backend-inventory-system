@@ -213,7 +213,7 @@ Authorization : Bearer <Input access token here>
 
 #### Validation Schema
 URL Parameters:
-- `userId` (required): The unique identifier of the user to be updated. This should be a valid ObjectId
+- `userId` (required): The unique identifier of the user. This should be a valid ObjectId
   
 #### Example Response
 ```json
@@ -328,7 +328,7 @@ The request body should be a JSON object containing any of the following fields:
 
 #### Validation Schema
 **URL Parameters:**'
-- `userId` (required): The unique identifier of the user to be updated. This should be a valid ObjectId
+- `userId` (required): The unique identifier of the user. This should be a valid ObjectId
 
 #### Example Response
 ```json
@@ -350,110 +350,155 @@ The request body should be a JSON object containing any of the following fields:
 }
 ```
 
-3. Category Resource
-   GET Categorys
-      GET /v1/category
+## 3. Category Resource
+-## GET Categorys
 
-      output
-      {
-     "status": true,
-     "statusCode": 200,
-     "message": "Get Categorys Success",
-     "data": {
-       "categorys": [
-         {
-           "id": "1",
-           "name": "...",
-           "createdAt": "...",
-           "updatedAt": "..."
-         },
-   
-        /*...*/
-         
-         {
-           "id": "50",
-           "name": "...",
-           "createdAt": "...",
-           "updatedAt": "..."
-         }
-       ],
-       "pagination": {
-         "totalItems": ...,
-         "totalPages": ...,
-         "currentPage": 1
-       }
+**Endpoint: `GET /v1/category`**
+
+**Description:** Retrieve a list of categories.
+
+#### Example Response
+```json
+{
+ "status": true,
+ "statusCode": 200,
+ "message": "Get Categorys Success",
+ "data": {
+   "categorys": [
+     {
+       "id": "1",
+       "name": "...",
+       "createdAt": "...",
+       "updatedAt": "..."
+     },
+
+    /*...*/
+     
+     {
+       "id": "50",
+       "name": "...",
+       "createdAt": "...",
+       "updatedAt": "..."
      }
+   ],
+   "pagination": {
+     "totalItems": ...,
+     "totalPages": ...,
+     "currentPage": 1
    }
+ }
+}
+```
 
-   GET Category By Id
-      GEt /v1/category/:id
+-## GET Category By Id
+**Emdpoint: `GEt /v1/category/:categoryId`**
 
-      output
-      {
-        "status": true,
-        "statusCode": 200,
-        "message": "Get Category Success",
-        "data": {
-          "id": "...",
-          "name": "...",
-          "createdAt": "...",
-          "updatedAt": "..."
-        }
-      }
+**Description:** Retrieve a single category by Id.
 
-   Add New category
-      POST /v1/category
 
-      input
-      {
-       "name": "create"
-      }
+#### Validation Schema
+**URL Parameters:**'
+- `categoryId` (required): The unique identifier of the category. This should be a valid ObjectId.
+  
+#### Example Response
+```json
+{
+    "status": true,
+    "statusCode": 200,
+    "message": "Get Category Success",
+    "data": {
+      "id": "...",
+      "name": "...",
+      "createdAt": "...",
+      "updatedAt": "..."
+    }
+}
+```
+-## Add New category
+**Endpoint: `POST /v1/category`**
 
-      output
-      {
-        "status": true,
-        "statusCode": 201,
-        "message": "Create Category Success",
-        "data": {
-          "id": "...",
-          "name": "...",
-          "createdAt": "...",
-          "updatedAt": "...."
-        }
-      }
+**Description:** Create a new category.
 
-   Update Category
-      PUT /v1/category/:id
-   
-      Input
-      {
-          "name": "update"
-      }
+#### Validation Schema
+- **`name`** (optional): A string representing the category name.
+  
+#### Example Request
+```json
+{
+    "name": "create"
+}
+```
 
-      Output
-      {
-        "status": true,
-        "statusCode": 200,
-        "message": "Update Category Success",
-        "data": {
-          "id": "...",
-          "name": "...",
-          "createdAt": "...",
-          "updatedAt": "..."
-        }
-      }
+#### Example Response
+```json
+{
+    "status": true,
+    "statusCode": 201,
+    "message": "Create Category Success",
+    "data": {
+      "id": "...",
+      "name": "...",
+      "createdAt": "...",
+      "updatedAt": "...."
+    }
+}
+```
+-## Update Category
+**Endpoint: `PUT /v1/category/categoryId`**
 
-   Delete Category
-      DELETE /v1/category/:id
-      Output
-      {
-        "status": true,
-        "statusCode": 200,
-        "message": "Delete Category Success",
-        "data": null
-      }
+**Description:** This endpoint allows you to update an existing category.
 
-4. Product Resource
+#### Validation Schema:
+
+**URL Parameters:**
+- `id` (required): The unique identifier of the category to be updated. This should be a valid ObjectId.
+
+**Request Body:**
+The request body should be a JSON object containing the following field:
+- **`name`** (required): A string representing the new name of the category.
+
+**Example Request:**
+```json
+{
+    "name": "update"
+}
+```
+
+#### Example Response
+```json
+{
+    "status": true,
+    "statusCode": 200,
+    "message": "Update Category Success",
+    "data": {
+      "id": "...",
+      "name": "...",
+      "createdAt": "...",
+      "updatedAt": "..."
+    }
+}
+```
+
+-## Delete Category
+**Endpoint: `DELETE /v1/category/:id`**
+
+**Description:** This endpoint allows you to delete an existing category.
+
+#### Validation Schema:
+**URL Parameters:**
+- `id` (required): The unique identifier of the category to be updated. This should be a valid ObjectId.
+
+#### Example Response
+```json
+{
+    "status": true,
+    "statusCode": 200,
+    "message": "Delete Category Success",
+    "data": null
+}
+```
+
+## 4. Product Resource
    
    Get All Product
       GET /v1/product
