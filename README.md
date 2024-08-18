@@ -398,7 +398,7 @@ The request body should be a JSON object containing any of the following fields:
 
 #### Validation Schema
 **URL Parameters:**'
-- `categoryId` (required): The unique identifier of the category. This should be a valid ObjectId.
+- `categoryId` (required): The unique identifier of the category to retrieve. This should be a valid ObjectId.
   
 #### Example Response
 ```json
@@ -486,7 +486,7 @@ The request body should be a JSON object containing the following field:
 
 #### Validation Schema:
 **URL Parameters:**
-- `id` (required): The unique identifier of the category to be updated. This should be a valid ObjectId.
+- `id` (required): The unique identifier of the category to be deleted. This should be a valid ObjectId.
 
 #### Example Response
 ```json
@@ -499,260 +499,383 @@ The request body should be a JSON object containing the following field:
 ```
 
 ## 4. Product Resource
-   
-   Get All Product
-      GET /v1/product
-      Output
-      {
-        "status": true,
-        "statusCode": 200,
-        "message": "Get Product Success",
-        "data": {
-          "products": [
-            {
-               "id": "1",
-              "name": "...",
-              "description": "...",
-              "price": ...,
-              "quantityInStock": ...,
-              "categoryId": "...",
-              "userId": "...",
-              "createdAt": "...",
-              "updatedAt": "..."
-            },
+- ## Get All Product
+**Endpoint: `GET /v1/product`**
 
-             /*...*/
-
-            {
-              "id": "50",
-              "name": "...",
-              "description": "...",
-              "price": ...,
-              "quantityInStock": ...,
-              "categoryId": "...",
-              "userId": "...",
-              "createdAt": "...",
-              "updatedAt": "..."
-            }
-          ],
-          "pagination": {
-            "totalItems": ...,
-            "totalPages": ....,
-            "currentPage": 1
-          }
-        }
-      }
-
-   Get Product By Id
-      GET /v1/product/:id
-
-      Output
-      {
-        "status": true,
-        "statusCode": 200,
-        "message": "Get Product Success",
-        "data": {
-            "id": "50",
-            "name": "...",
-            "description": "...",
-            "price": ...,
-            "quantityInStock": ...,
-            "categoryId": "...",
-            "userId": "...",
-            "createdAt": "...",
-            "updatedAt": "..."
-        }
-      }
-
-   Add New Product
-      POST /v1/product
-      Input
-      {
-          "name": "product",
-          "description": "Ini adalah create product",
-          "price": 1000,
-          "quantityInStock": 10,
-          "categoryId": "59bebb8e-af68-4093-bcff-156ab1de82b3",
-          "userId": "8641e64b-c7af-4ab7-b5ac-29762e9e1ca9"
-      }
-
-      Output
-      {
-        "status": true,
-        "statusCode": 201,
-        "message": "Create Product Success",
-        "data": {
-            "id": "1",
-            "name": "...",
-            "description": "...",
-            "price": ...,
-            "quantityInStock": ...,
-            "categoryId": "...",
-            "userId": "...",
-            "createdAt": "...",
-            "updatedAt": "..."
-        }
-      }
-
-   Update Product
-      PUT /v1/product/:id
-      Input
-      {
-          "name": "product",
-          "description": "Ini adalah create product",
-          "price": 25000,
-          "quantityInStock": 25,
-          "categoryId": "c671ff4d-991e-48e4-9ce2-72e6fca77d0a",
-          "userId": "df110501-5ed5-4530-87f7-6a9050413d98"
-      }
-
-      Output
-      {
-        "status": true,
-        "statusCode": 200,
-        "message": "Update Product Success",
-        "data": {
-            "id": "1",
-            "name": "...",
-            "description": "...",
-            "price": ...,
-            "quantityInStock": ...,
-            "categoryId": "...",
-            "userId": "...",
-            "createdAt": "...",
-            "updatedAt": "..."
-        }
-      }
-
-   Delete Product
-      DELETE /v1/product/:id
-      Output
-      {
-        "status": true,
-        "statusCode": 200,
-        "message": "Delete Product Success",
-        "data": null
-      }
-
-5. Order Resource
-     Get All Order
-      GET /v1/order
-      Ouput
-      {
-      "status": true,
-      "statusCode": 200,
-      "message": "Get CustomerOrders Success",
-      "data": {
-       "orders": [
-         {
+**Description:** Retrieve a list of products.
+#### Example Response
+```json
+{
+    "status": true,
+    "statusCode": 200,
+    "message": "Get Product Success",
+    "data": {
+      "products": [
+        {
            "id": "1",
-           "totalPrice": ...,
-           "customerName": "...",
-           "customerEmail": "",
-           "userId": "...",
-           "createdAt": "...",
-           "updatedAt": "..."
-         },
-      
-          /*...*/
-      
-         {
-           "id": "50",
-           "totalPrice": ...,
-           "customerName": "...",
-           "customerEmail": "",
-           "userId": "...",
-           "createdAt": "...",
-           "updatedAt": "..."
-         }
-       ],
-        "pagination": {
+          "name": "...",
+          "description": "...",
+          "price": ...,
+          "quantityInStock": ...,
+          "categoryId": "...",
+          "userId": "...",
+          "createdAt": "...",
+          "updatedAt": "..."
+        },
+    
+         /*...*/
+    
+        {
+          "id": "50",
+          "name": "...",
+          "description": "...",
+          "price": ...,
+          "quantityInStock": ...,
+          "categoryId": "...",
+          "userId": "...",
+          "createdAt": "...",
+          "updatedAt": "..."
+        }
+  ],
+  "pagination": {
+    "totalItems": ...,
+    "totalPages": ....,
+    "currentPage": 1
+  }
+}
+}
+```
+
+- ## Get Product By Id
+**Endpoint: `GET /v1/product/:productId`**
+
+**Description:** Retrieve details of a specific product by its ID.
+
+#### Validation Schema:
+**URL Parameters:**
+- `productId` (required): The unique identifier of the product to retrieve. This should be a valid ObjectId.
+  
+#### Example Response
+```json
+{
+    "status": true,
+    "statusCode": 200,
+    "message": "Get Product Success",
+    "data": {
+        "id": "50",
+        "name": "...",
+        "description": "...",
+        "price": ...,
+        "quantityInStock": ...,
+        "categoryId": "...",
+        "userId": "...",
+        "createdAt": "...",
+        "updatedAt": "..."
+    }
+}
+```
+
+- ## Add New Product
+**Endpoint: `POST /v1/product`**
+
+**Description:** Create a new product.
+
+#### Validation Schema:
+**Request Body:**
+The request body should be a JSON object containing the following field:
+- `name` (required): A string representing the name of the product.
+- `description` (required): A string describing the product.
+- `price` (required): A positive number representing the price of the product.
+- `quantityInStock` (required): An integer representing the quantity of the product in stock (must be 0 or greater).
+- `categoryId` (required): The unique identifier of the category the product belongs to. This should be a valid ObjectId.
+- `userId` (required): The unique identifier of the user who created the product. This should be a valid ObjectId.
+
+  
+#### Example Request:
+```json
+{
+    "name": "product",
+    "description": "Ini adalah create product",
+    "price": 1000,
+    "quantityInStock": 10,
+    "categoryId": "59bebb8e-af68-4093-bcff-156ab1de82b3",
+    "userId": "8641e64b-c7af-4ab7-b5ac-29762e9e1ca9"
+}
+```
+
+#### Example Response:
+```json
+{
+    "status": true,
+    "statusCode": 201,
+    "message": "Create Product Success",
+    "data": {
+        "id": "1",
+        "name": "...",
+        "description": "...",
+        "price": ...,
+        "quantityInStock": ...,
+        "categoryId": "...",
+        "userId": "...",
+        "createdAt": "...",
+        "updatedAt": "..."
+    }
+}
+```
+
+- ## Update Product
+**Endpoint: `PUT /v1/product/:productId`**
+
+**Description:** Update an existing product's details.
+
+#### Validation Schema:
+**URL Parameters:**
+
+- `productId` (required): The unique identifier of the product to be updated. This should be a valid ObjectId.
+
+**Request Body:**
+The request body should be a JSON object containing the following field:
+- `name` (optional): A string representing the name of the product.
+- `description` (optional): A string describing the product.
+- `price`  (optional): A positive number representing the price of the product.
+- `quantityInStock`  (optional): An integer representing the quantity of the product in stock (must be 0 or greater).
+- `categoryId` (optional): The unique identifier of the category the product belongs to. This should be a valid ObjectId.
+- `userId` (optional): The unique identifier of the user who created the product. This should be a valid ObjectId.
+
+#### Example Request:
+```json
+{
+    "name": "product",
+    "description": "Ini adalah create product",
+    "price": 25000,
+    "quantityInStock": 25,
+    "categoryId": "c671ff4d-991e-48e4-9ce2-72e6fca77d0a",
+    "userId": "df110501-5ed5-4530-87f7-6a9050413d98"
+}
+```
+
+#### Example Response:
+```json
+{
+    "status": true,
+    "statusCode": 200,
+    "message": "Update Product Success",
+    "data": {
+        "id": "1",
+        "name": "...",
+        "description": "...",
+        "price": ...,
+        "quantityInStock": ...,
+        "categoryId": "...",
+        "userId": "...",
+        "createdAt": "...",
+        "updatedAt": "..."
+        }
+}
+```
+
+- ## Delete Product
+**Endpoint: `DELETE /v1/product/:productId`**
+
+**Description:**  Delete an existing product by its ID.
+
+#### Validation Schema:
+**URL Parameters:**
+- `productId` (required): The unique identifier of the product to be deleted. This should be a valid ObjectId.
+
+#### Example Response:
+```json
+{
+    "status": true,
+    "statusCode": 200,
+    "message": "Delete Product Success",
+    "data": null
+}
+```
+
+## 5. Order Resource
+- ## Get All Order
+**Endpoint: `GET /v1/order`**
+
+**Description:** Retrieve a list of all customer orders.
+
+#### Example Response:
+```json
+{
+"status": true,
+"statusCode": 200,
+"message": "Get CustomerOrders Success",
+"data": {
+"orders": [
+ {
+       "id": "1",
+       "totalPrice": ...,
+       "customerName": "...",
+       "customerEmail": "",
+       "userId": "...",
+       "createdAt": "...",
+       "updatedAt": "..."
+     },
+    
+      /*...*/
+    
+     {
+       "id": "50",
+       "totalPrice": ...,
+       "customerName": "...",
+       "customerEmail": "",
+       "userId": "...",
+       "createdAt": "...",
+       "updatedAt": "..."
+     }
+    ],
+    "pagination": {
           "totalItems": ...,
           "totalPages": ....,
           "currentPage": 1
-       }
-      }
-     }
-
-   Get Single Product
-      GET /v1/order/:id
-
-      Output
-      {
-        "status": true,
-        "statusCode": 200,
-        "message": "Get Order Success",
-        "data": {
-           "id": "1",
-           "totalPrice": ...,
-           "customerName": "...",
-           "customerEmail": "",
-           "userId": "...",
-           "createdAt": "...",
-           "updatedAt": "..."
-      }
-
-   Add New Order
-      POST /v1/order
-      Input
-      {
-          "totalPrice": 0,
-          "customerName": "create",
-          "customerEmail": "create@gmail.com",
-          "userId": "cc672e85-d6a0-415c-932c-6c39118fe221"
-      }
-
-      Ouput
-      {
-        "status": true,
-        "statusCode": 200,
-        "message": "Get Order Success",
-        "data": {
-           "id": "1",
-           "totalPrice": ...,
-           "customerName": "...",
-           "customerEmail": "",
-           "userId": "...",
-           "createdAt": "...",
-           "updatedAt": "..."
         }
-      }
+    }
+}
+```
 
-   Edit Order
-      PUT /v1/order/:id
-      Input
-      {
-          "totalPrice": 0,
-          "customerName": "update",
-          "customerEmail": "update@gmail.com"
-      }
+- ## Get Single Order
+**Endpoint: `GET /v1/order/:orderId`**
 
-      Output
-      {
-        "status": true,
-        "statusCode": 200,
-        "message": "Get Order Success",
-        "data": {
-           "id": "1",
-           "totalPrice": ...,
-           "customerName": "...",
-           "customerEmail": "",
-           "userId": "...",
-           "createdAt": "...",
-           "updatedAt": "..."
-        }
-      }
+**Description:** Retrieve the details of a specific order by its ID.
 
-   Delete Product
-      DELETE /v1/order/:id
+#### Validation Schema:
+**URL Parameters:**
+- `orderId` (required): The unique identifier of the order to retrieve. This should be a valid ObjectId.
 
-      Output
-      {
-        "status": true,
-        "statusCode": 200,
-        "message": "Delete Order Success",
-        "data": null
-      }
+  
+#### Example Response:
+```json
+{
+    "status": true,
+    "statusCode": 200,
+    "message": "Get Order Success",
+    "data": {
+       "id": "1",
+       "totalPrice": ...,
+       "customerName": "...",
+       "customerEmail": "",
+       "userId": "...",
+       "createdAt": "...",
+       "updatedAt": "..."
+    }
+}
+```
+
+- ## Add New Order
+**Endpoint: `POST /v1/order`**
+
+**Description:** Create a new customer order.
+
+#### Validation Schema:
+**Request Body:**
+The request body should be a JSON object containing the following field:
+- `totalPrice` (required): A positive number representing the total price of the order.
+- `customerName` (required): A string representing the name of the customer placing the order.
+- `customerEmail` (required): A valid email address of the customer.
+- `userId` (required): The unique identifier of the user associated with this order. This should be a valid ObjectId.
+- `orderItems` (optional): An array of objects representing the items in the order. Each object should contain:
+_- `productId` (required): The unique identifier of the product being ordered. This should be a valid ObjectId.
+_- `quantity` (required): A positive integer representing the quantity of the product.
+_- `price` (required): A positive number representing the price of a single unit of the product.
+
+
+#### Example Request:
+```json
+{
+    "totalPrice": 0,
+    "customerName": "create",
+    "customerEmail": "create@gmail.com",
+    "userId": "cc672e85-d6a0-415c-932c-6c39118fe221"
+}
+```
+
+#### Example Response:
+```json
+{
+    "status": true,
+    "statusCode": 200,
+    "message": "Get Order Success",
+    "data": {
+        "id": "1",
+        "totalPrice": ...,
+        "customerName": "...",
+        "customerEmail": "",
+        "userId": "...",
+        "createdAt": "...",
+        "updatedAt": "..."
+    }
+}
+```
+
+- ## Edit Order
+**Endpoint: `PUT /v1/order/:orderId`**
+
+**Description:** Update the details of an existing order.
+
+#### Validation Schema:
+**URL Parameters:**
+- `orderId` (required): The unique identifier of the order to be updated. This should be a valid ObjectId.
+
+**Request Body:**
+The request body should be a JSON object containing the following field:
+- `totalPrice`  (optional): A positive number representing the total price of the order.
+- `customerName`  (optional): A string representing the name of the customer placing the order.
+- `customerEmail` (optional): A valid email address of the customer.
+- `userId`  (optional): The unique identifier of the user associated with this order. This should be a valid ObjectId.
+- `orderItems`  (optional): An array of objects representing the items in the order. Each object should contain:
+_- `productId`  (optional): The unique identifier of the product being ordered. This should be a valid ObjectId.
+_- `quantity`  (optional): A positive integer representing the quantity of the product.
+_- `price` (optional): A positive number representing the price of a single unit of the product.
+
+
+#### Example Request:
+```json
+{
+    "totalPrice": 0,
+    "customerName": "update",
+    "customerEmail": "update@gmail.com"
+}
+
+#### Example Response:
+```json
+{
+    "status": true,
+    "statusCode": 200,
+    "message": "Get Order Success",
+    "data": {
+       "id": "1",
+       "totalPrice": ...,
+       "customerName": "...",
+       "customerEmail": "",
+       "userId": "...",
+       "createdAt": "...",
+       "updatedAt": "..."
+    }
+}
+```
+
+- ## Delete Order
+**Endpoint: `DELETE /v1/order/:orderId`**
+**Description:** Delete an existing order.
+
+#### Validation Schema:
+**URL Parameters:**
+- `orderId` (required): The unique identifier of the order to be deleted. This should be a valid ObjectId.
+
+#### Example Response: Delete an existing order.
+```json
+{
+    "status": true,
+    "statusCode": 200,
+    "message": "Delete Order Success",
+    "data": null
+}
+```
 
    6. Order Item
       Get All Order Item
