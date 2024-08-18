@@ -351,7 +351,7 @@ The request body should be a JSON object containing any of the following fields:
 ```
 
 ## 3. Category Resource
--## GET Categorys
+- ## GET Categorys
 
 **Endpoint: `GET /v1/category`**
 
@@ -390,7 +390,7 @@ The request body should be a JSON object containing any of the following fields:
 }
 ```
 
--## GET Category By Id
+- ## GET Category By Id
 **Emdpoint: `GEt /v1/category/:categoryId`**
 
 **Description:** Retrieve a single category by Id.
@@ -414,7 +414,7 @@ The request body should be a JSON object containing any of the following fields:
     }
 }
 ```
--## Add New category
+- ## Add New category
 **Endpoint: `POST /v1/category`**
 
 **Description:** Create a new category.
@@ -443,7 +443,7 @@ The request body should be a JSON object containing any of the following fields:
     }
 }
 ```
--## Update Category
+- ## Update Category
 **Endpoint: `PUT /v1/category/categoryId`**
 
 **Description:** This endpoint allows you to update an existing category.
@@ -479,7 +479,7 @@ The request body should be a JSON object containing the following field:
 }
 ```
 
--## Delete Category
+- ## Delete Category
 **Endpoint: `DELETE /v1/category/:id`**
 
 **Description:** This endpoint allows you to delete an existing category.
