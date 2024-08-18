@@ -840,6 +840,7 @@ _- `price` (optional): A positive number representing the price of a single unit
     "customerName": "update",
     "customerEmail": "update@gmail.com"
 }
+```
 
 #### Example Response:
 ```json
@@ -861,13 +862,14 @@ _- `price` (optional): A positive number representing the price of a single unit
 
 - ## Delete Order
 **Endpoint: `DELETE /v1/order/:orderId`**
+
 **Description:** Delete an existing order.
 
 #### Validation Schema:
 **URL Parameters:**
 - `orderId` (required): The unique identifier of the order to be deleted. This should be a valid ObjectId.
 
-#### Example Response: Delete an existing order.
+#### Example Response: 
 ```json
 {
     "status": true,
