@@ -997,7 +997,7 @@ Request Body:
 **URL Parameters:**
 - `orderItemId` (required): The unique identifier of the order item to be updated. This should be a valid ObjectId.
 
-  **Request Body:**
+**Request Body:**
 - `orderId` (optional): A valid ObjectId representing the associated order.
 - `productId` (optional): A valid ObjectId representing the product being ordered.
 - `quantity` (optional): An integer representing the quantity of the product ordered. Must be a positive number.
