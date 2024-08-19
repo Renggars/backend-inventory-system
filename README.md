@@ -1038,7 +1038,7 @@ Request Body:
 #### Validation Schema:
 **URL Parameters:**
 - `orderItemId` (required): The unique identifier of the order item to be deleted. This should be a valid ObjectId.
-- 
+
 #### Example Response: 
 ```json
 {
