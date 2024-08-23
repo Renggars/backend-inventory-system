@@ -1,9 +1,9 @@
 # How to installation
-```json
+```text
 npm install
 ```
 
-```json
+```text
 npm run dev
 ```
 
