@@ -1,8 +1,11 @@
 # How to installation
-**Step 1:** `npm install`
+```json
+npm install
+```
 
-**step 2:** `npm run dev`
-
+```json
+npm run dev
+```
 
 ## 1. Auth Resource
 
