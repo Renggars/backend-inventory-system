@@ -1,3 +1,7 @@
+# How to installation
+`npm install`
+
+
 ## 1. Auth Resource
 
 - ### Register
