@@ -110,6 +110,27 @@ The registration input must conform to the following validation schema:
 }
 ```
 
+- ### Logout 
+
+**Endpoint:** `POST /v1/auth/logout`
+
+**Description:** This endpoint allows users to logout by providing their email and password 
+
+#### Validation Schema
+- **email** is required field and must be a valid email address
+- **password** is a required field and must match the user's registered password
+
+
+#### Example Input
+```json
+
+```
+
+#### Example Response
+```json
+
+```
+
 
 ## 2. User Resourse
 
