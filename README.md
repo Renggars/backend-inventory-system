@@ -938,6 +938,34 @@ _- `price` (optional): A positive number representing the price of a single unit
 }
 ```
 
+- ## Get Orders by User
+**Endpoint: `GET /v1/users/{orderId}/orders`**
+
+**Description:** Retrieve the details of a specific order by its ID.
+
+#### Validation Schema:
+**URL Parameters:**
+- `orderId` (required): The unique identifier of the order to retrieve. This should be a valid ObjectId.
+
+  
+#### Example Response:
+```json
+{
+    "status": true,
+    "statusCode": 200,
+    "message": "Get Order Success",
+    "data": {
+       "id": "1",
+       "totalPrice": ...,
+       "customerName": "...",
+       "customerEmail": "",
+       "userId": "...",
+       "createdAt": "...",
+       "updatedAt": "..."
+    }
+}
+```
+
 ## 6. Order Item
 - ## Get All Order Item
 **Endpoint: `GET /v1/orderItem`**
