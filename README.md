@@ -1135,3 +1135,30 @@ Request Body:
     "data": null
 }
 ```
+
+- ## Get Order Items by Order
+**Endpoint: `GET /v1/orders/{order}/order-items`**
+
+**Description:** Retrieve the details of a specific order item by ID.
+
+#### Validation Schema:
+**URL Parameters:**
+- `orderItemId` (required): The unique identifier of the order item to retrieve. This should be a valid ObjectId.
+
+#### Example Response: 
+```json
+{
+    "status": true,
+    "statusCode": 200,
+    "message": "Get Order Item Success",
+    "data": {
+       "id": "1",
+       "orderId": "...",
+       "productId": "...",
+       "quantity": ...,
+       "unitPrice": ...,
+       "createdAt": "...",
+       "updatedAt": "..."
+    }
+}
+```
