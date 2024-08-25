@@ -723,6 +723,35 @@ The request body should be a JSON object containing the following field:
 }
 ```
 
+- ## Get Products By User
+**Endpoint: `GET /v1/users/{userId}/products`**
+
+**Description:** Retrieve details of a specific product by its ID.
+
+#### Validation Schema:
+**URL Parameters:**
+- `productId` (required): The unique identifier of the product to retrieve. This should be a valid ObjectId.
+  
+#### Example Response
+```json
+{
+    "status": true,
+    "statusCode": 200,
+    "message": "Get Product Success",
+    "data": {
+        "id": "50",
+        "name": "...",
+        "description": "...",
+        "price": ...,
+        "quantityInStock": ...,
+        "categoryId": "...",
+        "userId": "...",
+        "createdAt": "...",
+        "updatedAt": "..."
+    }
+}
+```
+
 ## 5. Order Resource
 - ## Get All Order
 **Endpoint: `GET /v1/order`**
