@@ -121,11 +121,6 @@ The registration input must conform to the following validation schema:
 - **password** is a required field and must match the user's registered password
 
 
-#### Example Input
-```json
-
-```
-
 #### Example Response
 ```json
 
