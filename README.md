@@ -1134,23 +1134,25 @@ Request Body:
 - ## Get Order Items by Order
 **Endpoint: `GET /v1/orders/{order}/order-items`**
 
-**Description:** Retrieve the details of a specific order item by ID.
-
-**Endpoint: `DELETE /v1/orderItem/:orderItemId`**
-
-**Description:** Delete an order item.
-
 #### Validation Schema:
 **URL Parameters:**
-- `orderItemId` (required): The unique identifier of the order item to be deleted. This should be a valid ObjectId.
+- `order` (required): The unique identifier of the order to retrieve. This should be a valid ObjectId.
 
 #### Example Response: 
 ```json
 {
     "status": true,
     "statusCode": 200,
-    "message": "Delete Order Item Success",
-    "data": null
+    "message": "Get Order Item Success",
+    "data": {
+       "id": "1",
+       "orderId": "...",
+       "productId": "...",
+       "quantity": ...,
+       "unitPrice": ...,
+       "createdAt": "...",
+       "updatedAt": "..."
+    }
 }
 ```
 
